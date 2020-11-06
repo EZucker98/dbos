@@ -60,6 +60,23 @@ router.get("/users", async (req, res, next) => {
   }
 });
 
+router.get("/p/servers", async (req, res, next) => {
+  try {
+    const Nusers = await GuildModel.find({ premium: true }).sort({$natural:-1});
+    // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
+
+    let data = {
+      // rusers: Rusers,
+      guilds: Nusers,
+      icon: config.iconUrl,
+      SiteName: config.siteName
+    }
+    res.render("../views/dashboard/p/servers.ejs", data);
+  } catch (error) {
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+  }
+});
+
 
 router.get("/user/:id", async (req, res, next) => {
     const user = await bot.users.fetch(req.params.id);

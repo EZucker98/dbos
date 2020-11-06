@@ -77,7 +77,7 @@ bot.on("message", async message => {
     if (config.bot.messageLogging == true) { console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content) }
     const req = await GuildModel.findOne({ id: message.guild.id })
     if (!req) {
-        const init = new GuildModel({ id: message.guild.id })
+        const init = new GuildModel({ id: message.guild.id, name: message.guild.name, icon: message.guild.iconURL() })
         await init.save();
 
         const oprix = config.bot.prefix;
@@ -137,7 +137,7 @@ bot.on("message", async message => {
     if (!message.content.startsWith(oprix)) return;
 
     if (req.blacklisted == undefined || req.blacklisted == null) {
-        const blackListAdd = new GuildModel({ id: message.guild.id, blacklisted: false })
+        const blackListAdd = new GuildModel({ id: message.guild.id, blacklisted: false, name: message.guild.name, icon: message.guild.iconURL() })
         await blackListAdd.save();
     } else {
         if (req.blacklisted == true) {
@@ -231,8 +231,8 @@ bot.on("message", async message => {
 
         const guildDB = await GuildModel.findOne({ id: message.guild.id })
         if (!guildDB) {
-            const init = new GuildModel({ id: message.guild.id })
-            await init.save();
+        } else {
+            const init = GuildModel.findOneAndUpdate({ id: message.guild.id, name: message.guild.name, icon: message.guild.iconURL() })
         }
         if (guildDB.blacklisted == true) return;
         const levelstem = await levels.findOne({ guildID: message.guild.id, userID: UID })
@@ -378,9 +378,9 @@ bot.on("message", async message => {
 
 bot.on("guildCreate", async guild => {
     var serverid = guild.id;
-    const req = await GuildModel.findOne({ id: serverid })
+    const req = await GuildModel.findOne({ id: serverid, name: guild.name, icon: guild.iconURL() })
     if (!req) {
-        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix })
+        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix, name: message.guild.name, icon: message.guild.iconURL() })
         await init.save();
     }
 
