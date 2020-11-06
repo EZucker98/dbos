@@ -43,7 +43,6 @@ bot.on('ready', async () => {
     });
     console.log('FINISHED!')
     console.log('----[STARTING SHARDS]----')
-    bot.user.setStatus(botStatus);
     function StartShards() {
         fs.readdir("./commands/", (err, files) => {
             if (err) console.log(err);
@@ -65,7 +64,7 @@ bot.on('ready', async () => {
     }
     setTimeout(StartShards, 1000);
     setTimeout(() => {
-        bot.user.setActivity(botActivity);
+        bot.user.setPresence({ activity: { name: botActivity }, status: botStatus })
     }, 2000);
 
 
@@ -104,16 +103,33 @@ bot.on("message", async message => {
 
     if(guildIDB.premium == true){
         const PremUListed = await GUserModel.findOne({ id: message.member.id, guildID: message.guild.id })
+
         if (!PremUListed) {
-            const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id })
+            if(message.member.hasPermission("MANAGE_GUILD")){
+                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverSuperAdmin: true })
+            } else if(message.member.hasPermission("ADMINISTRATOR")){
+                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverAdmin: true })
+            } else if(message.member.hasPermission("BAN_MEMBERS")){
+                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverModerator: true })
+             } else {
+                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id })
+            }
             await init.save();
             if (config.danger.debug == true) {
                 console.log('[DEBUG] [PREMIUM LIST] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
             }
         } else {
-            const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage }, { new: true });
+            if(message.member.hasPermission("MANAGE_GUILD")){
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true }, { new: true });
+            } else if(message.member.hasPermission("ADMINISTRATOR")){
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverAdmin: true }, { new: true });
+            } else if(message.member.hasPermission("BAN_MEMBERS")){
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverModerator: true }, { new: true });
+             } else {
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage }, { new: true });
+            }
             if (config.danger.debug == true) {
-                console.log('[DEBUG] [PREMIUM LIST] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
+                console.log('[DEBUG] [PREMIUM LIST] ' + message.member.user.tag + ' on: ' + message.guild.name);
             }
         }
     }

@@ -11,6 +11,7 @@ module.exports.run = async (bot, message, args) => {
             Embed.addFields(
                 { name: '**Server Name**', value: `${message.guild.name}`, inline: true },
                 { name: '**Users**', value: `${message.guild.memberCount}`, inline: true },
+                { name: '**Page**', value: `${config.siteUrl}/s/${message.guild.id}`, inline: true },
             )
         message.channel.send(Embed);
     } catch (error) {

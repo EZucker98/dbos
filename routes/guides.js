@@ -60,6 +60,7 @@ router.get("/users", async (req, res, next) => {
   }
 });
 
+
 router.get("/user/:id", async (req, res, next) => {
     const user = await bot.users.fetch(req.params.id);
     if (!user) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})

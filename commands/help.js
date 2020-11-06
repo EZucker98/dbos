@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
                     helpEmbed.addFields(
                         { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server\n${prefix}rank\n${prefix}leaderboard`, inline: false },
                         { name: '**Profile**', value: `${prefix}bio - set your bio for your profile\n${prefix}discordurl - set your server url for your profile\n${prefix}giturl - set your github url for your profile\n\n${prefix}page - view your profile`, inline: false },
-                        { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}ban\n${prefix}clear\n${prefix}xpreset`, inline: false },
+                        { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}ban\n${prefix}clear`, inline: false },
                     )
                     if(req.premium == true){
                         helpEmbed.addFields(
