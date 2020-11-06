@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) => {
             .setTimestamp()
             .addFields(
                 { name: '**Moderator**', value: `${message.member.user.tag}`, inline: true },
-                { name: '**Unremoved ID**', value: `${Target}`, inline: true }
+                { name: '**Unremoved User**', value: `${req.username} - ${Target}`, inline: true }
             )
             .setFooter('© Wezacon.com')
             bot.channels.cache.get(log.channelLogId).send(removeEmbed);

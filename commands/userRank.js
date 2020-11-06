@@ -20,14 +20,56 @@ module.exports.run = async (bot, message, args) => {
 
         if(Rank == "contributor") {
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { contributor: true }}, { new: true });
-            return message.channel.send("Updated user, they are now a contributor!");
+            message.channel.send("Updated user, they are now a contributor!");
+            const log = config.bot.moderation.entryLogging;
+            const colors = require("../colors.json");
+            const removeEmbed = new Discord.MessageEmbed()
+            .setTitle('**Promoted User**')
+            .setColor(colors.success)
+            .setDescription(config.siteName + " has Promoted a user on the listing.")
+            .setTimestamp()
+            .addFields(
+                { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },
+                { name: '**Promoted**', value: `${doc.username} - ${Target}`, inline: true },
+                { name: '**Added rank**', value: `contributor`, inline: true }
+            )
+            .setFooter('© Wezacon.com')
+           return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else if(Rank == "verified") {
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { verified: true }}, { new: true });
-            return message.channel.send("Updated user, they are now verified!");
+            message.channel.send("Updated user, they are now verified!");
+            const log = config.bot.moderation.entryLogging;
+            const colors = require("../colors.json");
+            const removeEmbed = new Discord.MessageEmbed()
+            .setTitle('**Promoted User**')
+            .setColor(colors.success)
+            .setDescription(config.siteName + " has Promoted a user on the listing.")
+            .setTimestamp()
+            .addFields(
+                { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },
+                { name: '**Promoted**', value: `${doc.username} - ${Target}`, inline: true },
+                { name: '**Added rank**', value: `verified`, inline: true }
+            )
+            .setFooter('© Wezacon.com')
+           return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else if(Rank == "admin") {
              if(!message.member.roles.cache.has(config.bot.moderation.server.superAdminRoleId)) return message.reply("You are not a super admin.");
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { admin: true }}, { new: true });
-            return message.channel.send("Updated user, they are now a admin!");
+            message.channel.send("Updated user, they are now a admin!");
+            const log = config.bot.moderation.entryLogging;
+            const colors = require("../colors.json");
+            const removeEmbed = new Discord.MessageEmbed()
+            .setTitle('**Promoted User**')
+            .setColor(colors.success)
+            .setDescription(config.siteName + " has Promoted a user on the listing.")
+            .setTimestamp()
+            .addFields(
+                { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },
+                { name: '**Promoted**', value: `${doc.username} - ${Target}`, inline: true },
+                { name: '**Added rank**', value: `admin`, inline: true }
+            )
+            .setFooter('© Wezacon.com')
+           return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         }
     } catch (error) {
         const c = require("../colors.json");
