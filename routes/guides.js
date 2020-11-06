@@ -116,6 +116,10 @@ router.get("/:id/leaderboard", async (req, res, next) => {
   const Server = await GuildModel.findOne({ id: req.params.id });
   try {
     if(Server){
+      if(Server.blacklisted == true){
+        var cerr = "This server was blacklisted.";
+        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+      } 
           var users = await levels.find({ guildID: req.params.id }).sort({ level: -1, xp: -1 }).exec();
           let data = {
               Udata: users,
@@ -127,6 +131,34 @@ router.get("/:id/leaderboard", async (req, res, next) => {
               SiteName: config.siteName
           }
       res.render("../views/dashboard/leaderboard.ejs", data);
+    } else {
+      var cerr = "Unknown error.";
+      res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+    }
+  } catch (error) {
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+}
+});
+
+router.get("/s/:id", async (req, res, next) => {
+  const guildSingle = await bot.guilds.fetch(req.params.id);
+  if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})
+  const Server = await GuildModel.findOne({ id: req.params.id });
+  try {
+    if(Server){
+      if(Server.blacklisted == true){
+        var cerr = "This server was blacklisted.";
+        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+      } 
+          let data = {
+              server: req.server,
+              serverCore: guildSingle,
+              GuildDB: Server,
+              isProfile: true,
+              icon: config.iconUrl,
+              SiteName: config.siteName
+          }
+      res.render("../views/dashboard/s/home.ejs", data);
     } else {
       var cerr = "Unknown error.";
       res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});

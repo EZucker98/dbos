@@ -22,7 +22,8 @@ Then fill in these values:
             },
             "server": {
                 "id": "759754457520275461",
-                "adminRoleId": "771439011293822996"
+                "adminRoleId": "771439011293822996",
+                "superAdminRoleId": "774226382787313674"
             },
             "entryLogging": {
                 "enabled": true,

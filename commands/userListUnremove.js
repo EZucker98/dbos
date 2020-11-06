@@ -7,6 +7,7 @@ module.exports.run = async (bot, message, args) => {
         if(!message.guild.id == config.bot.moderation.server.id) return;
             if(!message.member.roles.cache.has(config.bot.moderation.server.adminRoleId)) return;
             const Target = args[0];
+            if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
             const RXR = args.slice(1).join(' ');
             function nl2br(str){
                 return str.replace(/(?:\r\n|\r|\n)/g, '<br>');

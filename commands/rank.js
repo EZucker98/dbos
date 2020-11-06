@@ -58,7 +58,7 @@ module.exports.run = async (bot, message, args) => {
         const clevel = 50;
         
         const nxp = user.nxp;
-
+    
         const rank = new canvacord.Rank()
             .setAvatar(message.author.displayAvatarURL({ dynamic: false, format: 'png' }))
             .setCurrentXP(user.xp)
@@ -68,6 +68,7 @@ module.exports.run = async (bot, message, args) => {
             .setDiscriminator(message.author.discriminator)
             .setRank(user.level, 'LEVEL UP', false)
             .setLevel(user.level, 'LEVEL', true)
+            .setStatus("offline")
             
         rank.build()
             	.then(data => {

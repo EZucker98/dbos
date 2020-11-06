@@ -27,6 +27,13 @@
     width: 45px !important;
     height: 40px !important;
 }
+.ListIcon {
+    position: absolute;
+    border-radius: 50%;
+    background-size: cover;
+    width: 50px !important;
+    height: 45px !important;
+}
 .smile {
     position: absolute;
     border-radius: 50%;
@@ -103,4 +110,11 @@
 }
 .error-background {
     background-color: var(--error) !important;  
+}
+.disabled {
+    filter: brightness(50%) !important;
+}
+.disabled:hover {
+    filter: brightness(50%) !important;
+    cursor: not-allowed;
 }

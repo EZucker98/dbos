@@ -236,6 +236,7 @@ bot.on("message", async message => {
                         .setDiscriminator(message.author.discriminator)
                         .setRank(user.level, 'LEVEL UP', false)
                         .setLevel(user.level, 'LEVEL', true)
+                        .setStatus("offline")
                         
                     rank.build()
                             .then(data => {
