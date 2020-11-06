@@ -15,7 +15,11 @@ const levels = require('./models/Levels');
 const { connect } = require('mongoose');
 const package = require("./package.json");
 const fetch = require("node-fetch");
-var botActivity = config.bot.status.activity || config.bot.prefix + "help | v" + package.version;
+if(config.bot.status.activity == "default"){
+    var botActivity = config.bot.prefix + "help | v" + package.version;  
+} else {
+    var botActivity = config.bot.status.activity;
+}
 var blackListMsgStatus = config.bot.moderation.blackListing.enabled;
 var blackListMsg = config.bot.moderation.blackListing.errorMessage;
 bot.on('ready', async () => {
