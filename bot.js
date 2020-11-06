@@ -272,7 +272,7 @@ bot.on("message", async message => {
             if (gxp >= levelst.nxp) {
                 var nxp = "0";
                 var level = levelst.level + 1;
-                var FXP = levelst.nxp + clevel;
+                var FXP = levelst.nxp + 50;
                 const levelstring = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: nxp, level: level, nxp: FXP }, { new: true });
                 if (config.danger.debug == true) {
                     console.log('[DEBUG] USER LEVELED UP TO ' + levelstring.level + ' XP: ' + levelstring.xp);
