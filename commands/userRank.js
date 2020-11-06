@@ -21,6 +21,7 @@ module.exports.run = async (bot, message, args) => {
         if(Rank == "contributor") {
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { contributor: true }}, { new: true });
             message.channel.send("Updated user, they are now a contributor!");
+            bot.users.cache.get(Target).send("You have been given the contributor role!");
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");
             const removeEmbed = new Discord.MessageEmbed()
@@ -38,6 +39,7 @@ module.exports.run = async (bot, message, args) => {
         } else if(Rank == "verified") {
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { verified: true }}, { new: true });
             message.channel.send("Updated user, they are now verified!");
+            bot.users.cache.get(Target).send("You have been given the verified badge!");
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");
             const removeEmbed = new Discord.MessageEmbed()
@@ -56,6 +58,7 @@ module.exports.run = async (bot, message, args) => {
              if(!message.member.roles.cache.has(config.bot.moderation.server.superAdminRoleId)) return message.reply("You are not a super admin.");
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { admin: true }}, { new: true });
             message.channel.send("Updated user, they are now a admin!");
+            bot.users.cache.get(Target).send("You have been given the admin role!");
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");
             const removeEmbed = new Discord.MessageEmbed()

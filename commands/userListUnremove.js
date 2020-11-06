@@ -29,9 +29,11 @@ module.exports.run = async (bot, message, args) => {
             if(req.removed == null || req.removed == undefined){
                 const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { removed: false}}, { new: true })
                 message.reply(`I've succesfully unremoved: \`${doc.id}\``);
+                bot.users.cache.get(doc.id).send("Your profile has been unremoved from the profile listing, Profile: " + config.siteUrl + "/user/" + doc.id);
             } else {
                 const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { removed: false}}, { new: true })
                 message.reply(`I've succesfully unremoved: \`${doc.id}\``);
+                bot.users.cache.get(doc.id).send("Your profile has been unremoved from the profile listing, Profile: " + config.siteUrl + "/user/" + doc.id);
             }
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");
