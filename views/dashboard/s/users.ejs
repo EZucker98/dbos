@@ -55,7 +55,8 @@
     </div>
     <div class="content">
         <div class="cards">
-      <% nusers.forEach(user => { 
+          <% if(GuildDB.premium == true){ %>
+                  <% nusers.forEach(user => { 
           if(user.removed == false){ 
         %>
             <div class="card">
@@ -86,6 +87,10 @@
           }
         }); 
           %>
+          <% } else {%>
+            <h4>This server does not have premium.</h4>
+            <% } %> 
+
         </div>
 
         <div class="Buttons">
