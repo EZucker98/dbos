@@ -11,6 +11,7 @@ bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 const GuildModel = require('./models/Guild');
 const UserModel = require('./models/User');
+const GUserModel = require('./models/GuildUsers');
 const levels = require('./models/Levels');
 const { connect } = require('mongoose');
 const package = require("./package.json");
@@ -84,7 +85,10 @@ bot.on("message", async message => {
     } else {
         var oprix = req.prefix;
     }
-
+    const UP = message.member.permissions.toArray();
+    if(config.danger.debug == true){
+        console.log("[DEBUG] " + messageAuthor + " " + UP)
+    }
     const userListed = await UserModel.findOne({ id: message.member.id })
     if (!userListed) {
         const init = new UserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage })
@@ -95,6 +99,25 @@ bot.on("message", async message => {
             console.log('[DEBUG] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
         }
     }
+
+    const guildIDB = await GuildModel.findOne({ id: message.guild.id })
+
+    if(guildIDB.premium == true){
+        const PremUListed = await GUserModel.findOne({ id: message.member.id, guildID: message.guild.id })
+        if (!PremUListed) {
+            const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id })
+            await init.save();
+            if (config.danger.debug == true) {
+                console.log('[DEBUG] [PREMIUM LIST] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
+            }
+        } else {
+            const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage }, { new: true });
+            if (config.danger.debug == true) {
+                console.log('[DEBUG] [PREMIUM LIST] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
+            }
+        }
+    }
+
     if (!message.content.startsWith(oprix)) return;
 
     if (req.blacklisted == undefined || req.blacklisted == null) {

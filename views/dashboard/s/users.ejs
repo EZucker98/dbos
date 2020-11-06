@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= SiteName %> - Leaderboard - <%= serverCore.name %></title>  <!-- 
+  <title><%= serverCore.name %> - Users</title>  <!-- 
     This is a product created by: Wezacon.com
     And used by: <%= SiteName %>. 
    -->
@@ -14,31 +14,17 @@
   <link rel="stylesheet" href="/css/pageContent.css">
   <link rel="stylesheet" href="/css/comps.css">
   <link rel="stylesheet" href="/css/list.css">
-  <link rel="stylesheet" href="/css/leaderboard.css">
-  <link rel="shortcut icon" href="<%= icon %>" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= serverCore.iconURL() %>" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
-  <meta name="description" content="<%= SiteName %> - Leaderboard - <%= serverCore.name %>">
+  <meta name="description" content="<%= serverCore.name %> - The discord bot for your server!">
   <meta name="twitter:card" value="summary">
-  <meta name="twitter:title" content="<%= SiteName %> - Leaderboard - <%= serverCore.name %>">
-  <meta name="twitter:description" content="<%= serverCore.name %>">
+  <meta name="twitter:title" content="<%= serverCore.name %>">
+  <meta name="twitter:description" content="The discord bot for your server!">
   <meta name="twitter:image" content="<%= serverCore.iconURL() %>">
-  <meta property="og:title" content="<%= SiteName %> - Leaderboard - <%= serverCore.name %>">
-  <meta property="og:description" content="<%= serverCore.name %>">
+  <meta property="og:title" content="<%= serverCore.name %>">
+  <meta property="og:description" content="The discord bot for your server!">
   <meta property="og:image" content="<%= serverCore.iconURL() %>">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-      .title img.status {
-    opacity: 1;
-    -webkit-animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
-    -moz-animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
-    -o-animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
-    animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
-    -webkit-transition: all .25s ease-in-out;
-    -moz-transition: all .25s ease-in-out;
-    -o-transition: all .25s ease-in-out;
-    transition: all .25s ease-in-out;
-    }
-  </style>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
 </head>
 <body>
  <div class="header">
@@ -46,82 +32,68 @@
     <div class="title">
       <br>
       <br>
-      <div class="userIcon">
-            <img class="icon" src="<%= serverCore.iconURL() %>">
-      </div>
-
-    <h1 style="font-size: 30px !important;">
-        <%= serverCore.name %>
-    </h1>
+      <img class="icon alive" src="<%= serverCore.iconURL() %>">
+      <h1><%= serverCore.name %> - Users</h1>
+    </div>
+    <div class="container">
+      <a class='btn_main dbtn' href="/s/<%= serverCore.id %> ">
+        Home
+      </a>
     </div>
   </div>
   <br>
   <br>
   <br>
-  <div class="pageContent">
+<div class="pageContent">
     <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverapp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves top" style="transform: rotate(180deg);"><defs _ngcontent-serverapp-c56=""><path _ngcontent-serverapp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverapp-c56="" class="parallax"><use _ngcontent-serverapp-c56="" id="wave1t" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverapp-c56="" id="wave2t" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverapp-c56="" id="wave3t" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverapp-c56="" id="wave4t" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
     <br>
     <div class="heading">
-      <br>Leaderboard 
+      <br>Users 
       <!-- <div style="width: 38.5321%;">
-        <div class="smile blue"></div>
-      </div> -->
+        <div class="smile" style="background-color: #FFD700;"></div>
+      </div>  -->
     </div>
-    <div class="content" style="justify-content: center;">
+    <div class="content">
         <div class="cards">
-            <% Udata.forEach(user => { 
-                
-            if(user.level == 0){
-                var NXP = 1;
-            } else if(user.level == 1){
-                var NXP = 2;
-            } else {
-                var NXP = user.level;
-            }
-
-            const clevel = 50;
-
-            const nxp = user.nxp;
-
-                %>
-                  <div class="card">
-                      <div>
-                      <img src="<%= user.userImage %>" style="position: relative;" alt="">                   
-                      </div>
-                      <br>
-                      <br>
-                  <h3>
-                      <%= user.userTag %> 
-                  </h3>
-                  <h4 class="rankLev">Level: <%= user.level %> &nbsp;  XP: <%= user.xp %> / <%= nxp %></h4>
-                      <a class='btn_main dbtn' href="../user/<%= user.userID %>">
-                          View Profile
-                        </a>
-                  </div>
-                  
-                  
-            <% }); %>
-              </div>
-
-
-             
-
-
-        <div class="Buttons">
-            <div class="container" style="padding-bottom: 0px !important;">
-                <a class='btn_main dbtn' href="/">
-                    Home
-                  </a>
-                <a class='btn_main dbtn' href="/users">
-                    Users
+      <% nusers.forEach(user => { 
+          if(user.removed == false){ 
+        %>
+            <div class="card">
+                <div>
+                <img src="<%= user.profileImage %>" style="position: relative;" alt="">
+                </div>
+                <br>
+                <br>
+            <h3>
+                <%= user.username %>          
+                <% if(user.serverSuperAdmin){ %>
+                    <i class="fa fa-tools" style="color: #25a109;" title="Super Admin"></i>
+                <% } %> 
+                <% if(user.serverAdmin){ %>
+                    <i class="fa fa-gavel" style="color: #2fb312;" title="Admin"></i>
+                <% } %> 
+                <% if(user.serverModerator){ %>
+                    <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
+                <% } %> 
+            </h3>
+                <a class='btn_main dbtn' href="u/<%= user.id %>">
+                    View
                   </a>
             </div>
+            
+            
+      <% 
+          }
+        }); 
+          %>
+        </div>
+
+        <div class="Buttons">
             <a href="/api/git"><i class="fa fa-github-square"></i></a>
         </div>
     </div>
     <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverApp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves bottom" style="transform: rotate(180deg);"><defs _ngcontent-serverApp-c56=""><path _ngcontent-serverApp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverApp-c56="" class="parallax"><use _ngcontent-serverApp-c56="" id="wave1b" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverApp-c56="" id="wave2b" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverApp-c56="" id="wave3b" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverApp-c56="" id="wave4b" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
 </div>
-
 
 <div class="footer">
   <div id="button"></div>

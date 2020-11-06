@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) => {
                     )
                     if(req.premium == true){
                         helpEmbed.addFields(
-                            { name: '**Premium**', value: `${prefix}`, inline: false }
+                            { name: '**Premium**', value: `${prefix}serverusers`, inline: false }
                         )
                     }
                     helpEmbed.setTimestamp()

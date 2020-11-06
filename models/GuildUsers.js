@@ -1,10 +1,10 @@
 const { Schema, model } = require('mongoose');
 const config = require('../config.json');
 
-const User = Schema({
+const GUser = Schema({
     id: String,
     guildID: String,
-    serverOwner: {
+    serverSuperAdmin: {
         type: Boolean,
         default: false
     },
@@ -38,4 +38,4 @@ const User = Schema({
     }
 });
 
-module.exports = model('User', User);
+module.exports = model('GUser', GUser);

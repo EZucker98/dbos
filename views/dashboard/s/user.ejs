@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= SiteName %> - User -       <% if(dbuser.removed == false){ %> 
+  <title><%= dguild.name %> - User -       <% if(dbuser.removed == false){ %> 
     <%= username %>
   <% } else { %>
    Removed
   <% } %></title>  <!-- 
     This is a product created by: Wezacon.com
-    And used by: <%= SiteName %>. 
+    And used by: <%= dguild.name %>. 
    -->
   <link rel="stylesheet" href="/css/root.css">
   <link rel="stylesheet" href="/css/waves.css">
@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="/css/errs.css">
   <link rel="shortcut icon" href="<%= icon %>" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
-  <meta name="description" content="<%= SiteName %> - User - <%= username %> - <%= bio %>">
+  <meta name="description" content="<%= dguild.name %> - User - <%= username %>">
   <meta name="twitter:card" value="summary">
-  <meta name="twitter:title" content="<%= SiteName %> - User - <%= username %>">
-  <meta name="twitter:description" content="<%= bio %>">
+  <meta name="twitter:title" content="<%= dguild.name %> - User - <%= username %>">
+  <meta name="twitter:description" content="<%= dguild.name %> - User - <%= username %>">
   <meta name="twitter:image" content="<%= avatar %>">
-  <meta property="og:title" content="<%= SiteName %> - User - <%= username %>">
-  <meta property="og:description" content="<%= bio %>">
+  <meta property="og:title" content="<%= dguild.name %> - User - <%= username %>">
+  <meta property="og:description" content="<%= dguild.name %> - User - <%= username %>">
   <meta property="og:image" content="<%= avatar %>">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
   <style>
       .title img.status {
     opacity: 1;
@@ -67,11 +67,7 @@
       <br>
       <br>
       <div class="userIcon">
-      <img class="icon" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= icon %> <% } %>">
-      <% if(dbuser.removed == false){ %>    
-            <% if(admin == true){ %>
-                <div class="teamBadge admin"><span>ADMIN</span></div>
-            <% } }%>  
+      <img class="icon" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= icon %> <% } %>"> 
       </div>
 
     <h1 style="font-size: 30px !important;">
@@ -80,11 +76,17 @@
       <% } else { %>
        <strong style="font-weight: 900;">Removed</strong> 
       <% } %>
-     <% if(dbuser.removed == false){
-        if(verified){ %>
-              <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
-          <% } 
-      }
+     <% if(dbuser.removed == false){ %>
+                <% if(dbuser.serverSuperAdmin){ %>
+                    <i class="fa fa-tools" style="color: #25a109;" title="Super Admin"></i>
+                <% } %> 
+                <% if(dbuser.serverAdmin){ %>
+                    <i class="fa fa-gavel" style="color: #2fb312;" title="Admin"></i>
+                <% } %> 
+                <% if(dbuser.serverModerator){ %>
+                    <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
+                <% } %> 
+     <% }
         %> 
          <% 
          if(dbuser.removed == false){
@@ -92,33 +94,7 @@
               <img class="developerBadge" style="background: none !important;" src="https://emoji.gg/assets/emoji/4228_discord_bot_dev.png"> 
           <% }
           } %> 
-         <div class="profilebadges" style="position: relative; justify-content: center!important; align-items: center; text-align: center; display: flex; margin: 30px;">
-            <%
-            if(dbuser.removed == false){
-              if(contributor == true){ %>
-                  <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%;"></div>
-              <% } 
-            }%>  
-         </div>
         </h1>
-        <div class="container" style="padding-bottom: 0px !important;">
-            <% 
-            if(dbuser.removed == false){
-            if(hasServer){ %>
-                <a class='btn_main dbtn' href="<%= serverInvite %> " target="_blank">
-                    Discord Server
-                </a>
-            <% } } %>  
-            <% 
-            if(dbuser.removed == false){
-            if(hasGit){ %>
-                <a class='btn_main dbtn' href="<%= gitLink %> " target="_blank">
-                    <i class="fa fa-github"></i> Github
-                </a>
-            <% } 
-              }
-            %>  
-        </div>
     </div>
   </div>
   <br>
@@ -134,17 +110,13 @@
       </div> -->
     </div>
     <div class="content">
-      <% if(dbuser.removed == false){ %>
-        <%- bio %>
-      <% } else {%>
-        The bio of this user has been <strong>Removed</strong>
-      <% } %>
+      <%- bio %>
         <div class="Buttons">
             <div class="container" style="padding-bottom: 0px !important;">
-                <a class='btn_main dbtn' href="/">
+                <a class='btn_main dbtn' href="/s/<%= dguild.id %>">
                     Home
                   </a>
-                <a class='btn_main dbtn' href="/users">
+                <a class='btn_main dbtn' href="/s/<%= dguild.id %>/users">
                     Users
                   </a>
             </div>

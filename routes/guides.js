@@ -8,6 +8,7 @@ const app = express();
 app.set('view engine', 'ejs');
 const Levels = require('discord-xp');
 const UserModel = require('../models/User');
+const GUserModel = require("../models/GuildUsers");
 const GuildModel = require('../models/Guild');
 const levels = require('../models/Levels');
 
@@ -134,6 +135,73 @@ router.get("/:id/leaderboard", async (req, res, next) => {
               SiteName: config.siteName
           }
       res.render("../views/dashboard/leaderboard.ejs", data);
+    } else {
+      var cerr = "Unknown error.";
+      res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+    }
+  } catch (error) {
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+}
+});
+
+router.get("/s/:id/users", async (req, res, next) => {
+  const guildSingle = await bot.guilds.fetch(req.params.id);
+  if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})
+  const Server = await GuildModel.findOne({ id: req.params.id });
+  try {
+    if(Server){
+      if(Server.blacklisted == true){
+        var cerr = "This server was blacklisted.";
+        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+      } 
+    const Nusers = await GUserModel.find({ guildID: req.params.id }).sort({$natural:-1});
+    // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
+
+    let data = {
+      serverCore: guildSingle,
+      GuildDB: Server,
+      nusers: Nusers,
+      icon: config.iconUrl,
+      SiteName: config.siteName
+    }
+    res.render("../views/dashboard/s/users.ejs", data);
+  } else {
+    var cerr = "Unknown error.";
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+  }
+  } catch (error) {
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+  }
+});
+
+router.get("/s/:id/u/:userID", async (req, res, next) => {
+  const user = await bot.users.fetch(req.params.userID);
+  if (!user) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: "Something went wrong: [UID]"})
+  const userListed = await GUserModel.findOne({ id: req.params.userID, guildID: req.params.id });
+
+  const Guild = await bot.guilds.fetch(req.params.id);
+  if (!Guild) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: "Something went wrong: [GID]"})
+  const GuildListed = await GuildModel.findOne({ id: req.params.id });
+  if(!GuildListed) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: "Something went wrong [GID]"});
+  try {
+    if(userListed){
+        let VERIFIED_DEVELOPER = (await user.fetchFlags()).has("VERIFIED_DEVELOPER");
+
+          let data = {
+              user: req.user,
+              userProfile: user,
+              guild: GuildListed,
+              dguild: Guild,
+              dbuser: userListed,
+              developer: VERIFIED_DEVELOPER ,
+              isProfile: true,
+              avatar: user.displayAvatarURL({ dynamic: true }),
+              username: userListed.username,
+              bio: userListed.bio,
+              icon: config.iconUrl,
+              SiteName: config.siteName
+          }
+      res.render("../views/dashboard/s/user.ejs", data);
     } else {
       var cerr = "Unknown error.";
       res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
