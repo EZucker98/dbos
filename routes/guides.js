@@ -45,10 +45,10 @@ router.get("/easter", function(request, response){
 router.get("/users", async (req, res, next) => {
   try {
     const Nusers = await UserModel.find({}).sort({$natural:-1});
-    const Rusers = await UserModel.aggregate([{ $sample: { size: 8 } }]);
+    // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
 
     let data = {
-      rusers: Rusers,
+      // rusers: Rusers,
       nusers: Nusers,
       icon: config.iconUrl,
       SiteName: config.siteName
@@ -58,22 +58,7 @@ router.get("/users", async (req, res, next) => {
     res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
   }
 });
-router.get("/users/all", async (req, res, next) => {
-  try {
-    const Nusers = await UserModel.find({}).sort({$natural:-1});
-    const ausers = await UserModel.aggregate([{ $sample: { size: 1000000 } }]);
 
-    let data = {
-      ausers: ausers,
-      nusers: Nusers,
-      icon: config.iconUrl,
-      SiteName: config.siteName
-    }
-    res.render("../views/dashboard/users_all.ejs", data);
-  } catch (error) {
-    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
-  }
-});
 router.get("/user/:id", async (req, res, next) => {
     const user = await bot.users.fetch(req.params.id);
     if (!user) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})

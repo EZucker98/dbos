@@ -151,6 +151,37 @@ bot.on("message", async message => {
     }
 })
 
+// bot.on("message", async message => {
+//     try {
+//         if (message.channel.type === "dm") return;
+//         if (message.author.bot) return;
+//         var messageAuthor = message.member.user.tag;
+//         const AuthorImage = message.author.avatarURL({ dynamic: true });
+//         var UID = message.member.id;
+
+//         const guildDB = await GuildModel.findOne({ id: message.guild.id })
+//         if (!guildDB) {
+//             const init = new GuildModel({ id: message.guild.id })
+//             await init.save();
+//         }
+//         if (guildDB.blacklisted == true) return;
+
+//         const guildDB = await GuildModel.findOne({ id: message.guild.id })
+//         if (!guildDB) {
+//             const init = new GuildModel({ id: message.guild.id })
+//             await init.save();
+//         }
+
+//     } catch (error) {
+//         const c = require("./colors.json");
+//         const Err_1 = new Discord.MessageEmbed()
+//             .setColor(c.error)
+//             .setTitle("**Error**")
+//             .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+//         return message.channel.send(Err_1);
+//     }
+// });
+
 bot.on("message", async message => {
     try {
         if (message.channel.type === "dm") return;

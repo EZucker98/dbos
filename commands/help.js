@@ -26,7 +26,11 @@ module.exports.run = async (bot, message, args) => {
                         { name: '**Profile**', value: `${prefix}bio - set your bio for your profile\n${prefix}discordurl - set your server url for your profile\n${prefix}giturl - set your github url for your profile\n\n${prefix}page - view your profile`, inline: false },
                         { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}ban\n${prefix}clear\n${prefix}xpreset`, inline: false },
                     )
-                    
+                    if(req.premium == true){
+                        helpEmbed.addFields(
+                            { name: '**Premium**', value: `${prefix}`, inline: false }
+                        )
+                    }
                     helpEmbed.setTimestamp()
                     helpEmbed.setFooter('© Wezacon.com', 'https://github.com/wezacon/dbos/blob/main/public/img/Wezacon-icon.png?raw=true');
         
