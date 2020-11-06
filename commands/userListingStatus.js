@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
         const state = args[0];
         if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"liststatus (true/false)`")
 
-        if(state == "true") {
+        if(state == "allow") {
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { allowListing: true }}, { new: true });
             message.channel.send("Allowed listing!");
             const log = config.bot.moderation.entryLogging;
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
             )
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
-        } else if(state == "false") {
+        } else if(state == "disallow") {
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { allowListing: false }}, { new: true });
             message.channel.send("Disallowed listing!");
             const log = config.bot.moderation.entryLogging;
