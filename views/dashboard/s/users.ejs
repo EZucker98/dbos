@@ -54,8 +54,9 @@
       </div>  -->
     </div>
     <div class="content">
+      <% if(GuildDB.premium == true){ %>
         <div class="cards">
-          <% if(GuildDB.premium == true){ %>
+          
                   <% nusers.forEach(user => { 
           if(user.removed == false){ 
         %>
@@ -87,11 +88,13 @@
           }
         }); 
           %>
-          <% } else {%>
-            <h4>This server does not have premium.</h4>
-            <% } %> 
 
         </div>
+        <% } else {%>
+            <div style="text-align: center !important;">
+              <h2>This server does not have premium.</h2>
+            </div>
+            <% } %> 
 
         <div class="Buttons">
             <a href="/api/git"><i class="fa fa-github-square"></i></a>
