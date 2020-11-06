@@ -86,14 +86,7 @@
                 %>
                   <div class="card">
                       <div>
-                      <img src="
-                      <% if(user.profileImage == null) {%>
-                        https://github.com/wezacon/dbos/blob/main/public/img/logo.PNG?raw=true
-                      <% } else { %> 
-                        <%= user.userImage %>
-                      <% } %>
-                      <%= user.userImage %>
-                      " style="position: relative;" alt="">                   
+                      <img src="<% if(user.profileImage == null) {%>https://github.com/wezacon/dbos/blob/main/public/img/logo.PNG?raw=true<% } else { %> <%= user.userImage %><% } %><%= user.userImage %>" style="position: relative;" alt="">                   
                       </div>
                       <br>
                       <br>
