@@ -33,11 +33,11 @@ module.exports.run = async (bot, message, args) => {
             if(req.removed == null || req.removed == undefined){
                 const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully removed: \`${doc.id}\` Reason: \`${RSX}\` `);
-                bot.users.cache.get(doc.id).send("Your profile has been removed from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/user/" + doc.id);
+                bot.users.cache.get(Target).send("Your profile has been removed from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/user/" + doc.id);
             } else {
                 const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully removed: \`${doc.id}\` Reason: \`${RSX}\` `);
-                bot.users.cache.get(doc.id).send("Your profile has been removed from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/user/" + doc.id);
+                bot.users.cache.get(Target).send("Your profile has been removed from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/user/" + doc.id);
             }
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");

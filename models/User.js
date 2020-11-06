@@ -15,6 +15,10 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    allowListing: {
+        type: Boolean,
+        default: true
+    },
     removed: {
         type: Boolean,
         default: false

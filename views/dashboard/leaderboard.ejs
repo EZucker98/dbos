@@ -53,6 +53,13 @@
     <h1 style="font-size: 30px !important;">
         <%= serverCore.name %>
     </h1>
+
+    <div class="container">
+      <a class='btn_main dbtn' href="../s/<%= GuildDB.id %>">
+        Server Home
+      </a>
+    </div>
+
     </div>
   </div>
   <br>
@@ -94,9 +101,15 @@
                       <%= user.userTag %> 
                   </h3>
                   <h4 class="rankLev">Level: <%= user.level %> &nbsp;  XP: <%= user.xp %> / <%= nxp %></h4>
-                      <a class='btn_main dbtn' href="../user/<%= user.userID %>">
-                          View Profile
-                        </a>
+                  <% if(GuildDB.premium == true){ %>
+                      <a class='btn_main dbtn' href="../s/<%= GuildDB.id %>/u/<%= user.userID %>">
+                        View Profile
+                      </a>
+                  <% } else { %>
+                    <a class='btn_main dbtn' href="../user/<%= user.userID %>">
+                        View Profile
+                    </a>
+                  <% } %>
                   </div>
                   
                   

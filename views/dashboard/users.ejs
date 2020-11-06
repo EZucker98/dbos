@@ -59,7 +59,8 @@
     <div class="content">
         <div class="cards">
       <% nusers.forEach(user => { 
-          if(user.removed == false){ 
+          if(user.removed == false){
+            if(user.allowListing == true){ 
         %>
             <div class="card">
                 <div>
@@ -82,6 +83,7 @@
             
             
       <% 
+          }
           }
         }); 
           %>
