@@ -108,6 +108,10 @@
 .error-font {
     color: var(--error) !important;
 }
+.info-background {
+    background-color: var(--primary) !important;
+    filter: brightness(90%) !important;
+}
 .error-background {
     background-color: var(--error) !important;  
 }

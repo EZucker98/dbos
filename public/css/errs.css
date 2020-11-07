@@ -1,6 +1,5 @@
 .topBar {
     color: var(--font);
-    background-color: var(--error);
 }
 .topBar .content {
     padding-top: 10px;

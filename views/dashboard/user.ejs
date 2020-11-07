@@ -44,8 +44,19 @@
   </style>
 </head>
 <body>
+  <% if(dbuser.removed == false){ %>
+    <% if(dbuser.allowListing == false){ %>
+      <div class="topBar info-background">
+        <div class="content">
+          <i class="fa fa-info-circle" style="color: var(--primary)!important; filter: brightness(40%) !important;"></i>
+          &nbsp;
+          This profile is <strong>not</strong> listed
+      </div>
+    </div>
+    <% } %>  
+  <% } %>  
   <% if(dbuser.removed == true){ %>
-    <div class="topBar">
+    <div class="topBar error-background">
         <div class="content">
           <i class="fa fa-exclamation-triangle"></i>
           &nbsp;   This user has been removed
