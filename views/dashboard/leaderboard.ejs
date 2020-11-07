@@ -99,17 +99,26 @@
                       <br>
                   <h3>
                       <%= user.userTag %> 
-                  </h3>
+                  </h3>            
+                 
                   <h4 class="rankLev">Level: <%= user.level %> &nbsp;  XP: <%= user.xp %> / <%= nxp %></h4>
+                  <div style="display: flex!important;">
+                  
                   <% if(GuildDB.premium == true){ %>
                       <a class='btn_main dbtn' href="../s/<%= GuildDB.id %>/u/<%= user.userID %>">
-                        View Profile
+                        Server Profile
+                      </a>
+                      <a class='btn_main dbtn' href="../user/<%= user.userID %>">
+                        Global Profile
                       </a>
                   <% } else { %>
                     <a class='btn_main dbtn' href="../user/<%= user.userID %>">
-                        View Profile
+                        Global Profile
                     </a>
                   <% } %>
+
+                  </div>
+
                   </div>
                   
                   
