@@ -23,6 +23,10 @@ const Guild = Schema({
     premium: {
         type: Boolean,
         default: false
+    },
+    invite: {
+        type: String,
+        default: "none"
     }
 });
 

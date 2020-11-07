@@ -239,12 +239,19 @@ router.get("/s/:id", async (req, res, next) => {
         var cerr = "This server was blacklisted.";
         res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
       } 
+        if(Server.invite == "none" || Server.invite == null || Server.invite == undefined){
+          var invAv = false;
+        } else {
+          var invAv = true;
+        }
           let data = {
               server: req.server,
               serverCore: guildSingle,
               GuildDB: Server,
               isProfile: true,
               icon: config.iconUrl,
+              hasInv: invAv,
+              Invite: Server.invite,
               SiteName: config.siteName
           }
       res.render("../views/dashboard/s/home.ejs", data);

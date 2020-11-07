@@ -25,7 +25,7 @@
   <meta property="og:title" content="<%= SiteName %> - Home - <%= serverCore.name %>">
   <meta property="og:description" content="<%= serverCore.name %>">
   <meta property="og:image" content="<%= serverCore.iconURL() %>">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
   <style>
       .title img.status {
     opacity: 1;
@@ -53,6 +53,15 @@
     <h1 style="font-size: 30px !important;">
         <%= serverCore.name %>
     </h1>
+    </div>
+    <div class="container">
+      <% if(GuildDB.premium == true){ %>
+        <% if(hasInv == true){ %>
+          <a class='btn_main dbtn' href="https://discord.gg/<%= GuildDB.invite %>" target="_blank">
+            <i class="fab fa-discord"></i> &nbsp; Join server
+          </a> 
+        <% } %>
+      <% } %>
     </div>
   </div>
   <br>
@@ -122,7 +131,7 @@
                     Users
                   </a>
             </div>
-            <a href="/api/git"><i class="fa fa-github-square"></i></a>
+            <a href="/api/git"><i class="fab fa-github-square"></i></a>
             <a href="https://dbos.flarum.cloud/"><i class="fa fa-question-circle"></i></a>
         </div>
     </div>
