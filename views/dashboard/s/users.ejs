@@ -78,9 +78,15 @@
                     <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
                 <% } %> 
             </h3>
-                <a class='btn_main dbtn' href="u/<%= user.id %>">
-                    View
+            <div style="display: flex!important;">
+              <a class='btn_main dbtn' href="u/<%= user.id %>">
+                    Server Profile
                   </a>
+                  <a class='btn_main dbtn' href="../../user/<%= user.id %>">
+                    Global Profile
+                  </a>
+                  </div>
+                
             </div>
             
             
