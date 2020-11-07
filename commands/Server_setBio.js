@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
         if(guild.premium == false) return message.reply("The server needs premium to use this command!")
 
         if(!args.length) return message.reply('You didn\'t provide a bio.');
-        if(args.length > 500) return message.reply('Error, You can\'t have more than `500` characters.');
+        if(args.length > 300) return message.reply('Error, You can\'t have more than `300` characters.');
 
         const bio1 = args.join(" ");
         function nl2br(str){

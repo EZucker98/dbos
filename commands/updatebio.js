@@ -5,7 +5,7 @@ const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
     try {
         if(!args.length) return message.reply('You didn\'t provide a bio.');
-        if(args.length > 500) return message.reply('Error, You can\'t have more than `500` characters.');
+        if(args.length > 300) return message.reply('Error, You can\'t have more than `300` characters.');
 
         const bio1 = args.join(" ");
         function nl2br(str){

@@ -96,6 +96,14 @@
           } %> 
         </h1>
     </div>
+    <div class="container" style="padding-bottom: 0px !important;">
+                <a class='btn_main dbtn' href="/s/<%= dguild.id %>">
+                    Server Home
+                  </a>
+                <a class='btn_main dbtn' href="/s/<%= dguild.id %>/users">
+                    Users
+                  </a>
+            </div>
   </div>
   <br>
   <br>
@@ -112,14 +120,6 @@
     <div class="content">
       <%- bio %>
         <div class="Buttons">
-            <div class="container" style="padding-bottom: 0px !important;">
-                <a class='btn_main dbtn' href="/s/<%= dguild.id %>">
-                    Server Home
-                  </a>
-                <a class='btn_main dbtn' href="/s/<%= dguild.id %>/users">
-                    Users
-                  </a>
-            </div>
             <a href="/api/git"><i class="fab fa-github-square"></i></a>
             <a href="https://dbos.flarum.cloud/"><i class="fas fa-question-circle"></i></a>
         </div>
