@@ -62,4 +62,7 @@ CL -> Command Log - Enabled with `"commandLogging": true`
 
 - (prefix)listremove [UserID] [Reason]
 - (prefix)listunremove [UserID]
+
+- (prefix)setuser [userid] (role)
+- (prefix)unsetuser [userid] (role)
 ``` 
