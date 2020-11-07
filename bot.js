@@ -110,10 +110,10 @@ bot.on("message", async message => {
                 const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverSuperAdmin: true })
                 await init.save();
             } else if(message.member.hasPermission("ADMINISTRATOR")){
-                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverAdmin: true })
+                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverSuperAdmin: true })
                 await init.save();
             } else if(message.member.hasPermission("BAN_MEMBERS")){
-                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverModerator: true })
+                const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverSuperAdmin: true })
                 await init.save();
             } else {
                 const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id })
@@ -127,9 +127,9 @@ bot.on("message", async message => {
             if(message.member.hasPermission("MANAGE_GUILD")){
                 const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true }, { new: true });
             } else if(message.member.hasPermission("ADMINISTRATOR")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverAdmin: true }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true }, { new: true });
             } else if(message.member.hasPermission("BAN_MEMBERS")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverModerator: true }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true }, { new: true });
              } else {
                 const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage }, { new: true });
             }
