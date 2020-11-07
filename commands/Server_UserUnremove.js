@@ -1,0 +1,50 @@
+const Discord = require("discord.js");
+const UserModel = require('../models/GuildUsers')
+const { connect } = require('mongoose');
+const config = require('../config.json');
+module.exports.run = async (bot, message, args) => {
+    try {
+            if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply("You are lacking the following permissions: `BAN_MEMBERS`")
+            const Target = args[0];
+
+            if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
+            const RXR = args.slice(1).join(' ');
+            function nl2br(str){
+                return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+            }
+            const RSX = RXR.replace(/<[^>]+>/g, '');
+            const Reason = nl2br(RSX);
+            if(Target === message.member.id) return message.reply('I can\'t remove you.');
+
+            if(!Target) return message.reply('Please enter in a valid user id');
+
+            if(!Target.length > 5) return message.reply('Please enter in a valid user id');
+
+            const req = await UserModel.findOne({ id: Target, guildID: message.guild.id })
+            if(!req) return message.reply("User not found...");
+
+
+            if(req.removed == null || req.removed == undefined){
+                const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
+                message.reply(`I've succesfully unremoved: \`${doc.id}\` `);
+                // bot.users.cache.get(Target).send("Your profile has been unremoved from the "+ message.guild.name +" profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
+            } else {
+                const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
+                message.reply(`I've succesfully removed: \`${doc.id}\` `);
+                // bot.users.cache.get(Target).send("Your profile has been unremoved from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
+            }
+    } catch (error) {
+        const c = require("../colors.json");
+        const Err_1 = new Discord.MessageEmbed()
+            .setColor(c.error)
+            .setTitle("**Error**")
+            .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+        return message.channel.send(Err_1);
+    }
+    
+}
+
+module.exports.help = {
+    name: "serverunremove",
+    aliases: []
+}

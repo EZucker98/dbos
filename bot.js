@@ -108,16 +108,20 @@ bot.on("message", async message => {
         if (!PremUListed) {
             if(message.member.hasPermission("MANAGE_GUILD")){
                 const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverSuperAdmin: true })
+                await init.save();
             } else if(message.member.hasPermission("ADMINISTRATOR")){
                 const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverAdmin: true })
+                await init.save();
             } else if(message.member.hasPermission("BAN_MEMBERS")){
                 const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id, serverModerator: true })
-             } else {
+                await init.save();
+            } else {
                 const init = new GUserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, guildID: message.guild.id })
+                await init.save();
             }
-            await init.save();
+            const UIL = await GUserModel.findOne({ id: message.member.id, guildID: message.guild.id })
             if (config.danger.debug == true) {
-                console.log('[DEBUG] [PREMIUM LIST] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
+                console.log('[DEBUG] [PREMIUM LIST] ' + UIL.username + ' - ADMIN: ' + UIL.admin + '  ' + UIL.profileImage);
             }
         } else {
             if(message.member.hasPermission("MANAGE_GUILD")){
