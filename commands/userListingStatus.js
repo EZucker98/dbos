@@ -21,6 +21,7 @@ module.exports.run = async (bot, message, args) => {
             .setTimestamp()
             .addFields(
                 { name: '**User**', value: `${doc.username} - ${message.member.id}`, inline: true },
+                { name: '**Guild**', value: `${message.guild.name} - ${message.guild.id}`, inline: true },
                 { name: '**Allowance**', value: `true`, inline: true }
             )
             .setFooter('© Wezacon.com')
@@ -33,10 +34,11 @@ module.exports.run = async (bot, message, args) => {
             const removeEmbed = new Discord.MessageEmbed()
             .setTitle('**Disallowed listing**')
             .setColor(colors.danger)
-            .setDescription(config.siteName + " has allowed the listing status.")
+            .setDescription(config.siteName + " has disallowed the listing status.")
             .setTimestamp()
             .addFields(
                 { name: '**User**', value: `${doc.username} - ${message.member.id}`, inline: true },
+                { name: '**Guild**', value: `${message.guild.name} - ${message.guild.id}`, inline: true },
                 { name: '**Allowance**', value: `false`, inline: true }
             )
             .setFooter('© Wezacon.com')
