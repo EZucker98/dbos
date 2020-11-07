@@ -3,7 +3,7 @@ const config = require("../config.json");
 const GuildModel = require("../models/Guild");
 module.exports.run = async (bot, message, args) => {
     try {
-        const guild = GuildModel.findOne({ id: message.guild.id })
+        const guild = await GuildModel.findOne({ id: message.guild.id });
         if(guild.premium == false) return message.reply("The server needs premium to use this command!")
         if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("You are lacking the following permissions: `ADMINISTRATOR`");
 

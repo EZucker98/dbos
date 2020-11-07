@@ -6,7 +6,7 @@ const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
     try {
         const GuildModel = require("../models/Guild");
-        const guild = GuildModel.findOne({ id: message.guild.id })
+        const guild = await GuildModel.findOne({ id: message.guild.id });
         if(guild.premium == false) return message.reply("The server needs premium to use this command!")
 
         if(!args.length) return message.reply('You didn\'t provide a bio.');
