@@ -4,6 +4,8 @@ const { connect } = require('mongoose');
 const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
     try {
+        const guild = GuildModel.findOne({ id: message.guild.id })
+        if(guild.premium == false) return message.reply("The server needs premium to use this command!")
             if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply("You are lacking the following permissions: `BAN_MEMBERS`")
             const Target = args[0];
 
