@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
     try {
         const guildData = await GuildModel.findOne({ id: message.guild.id })
         const state = args[0];
-        if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"liststatus (true/false)`")
+        if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"liststatus (allow/disallow)`")
 
         if(state == "allow") {
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { allowListing: true }}, { new: true });
@@ -44,7 +44,7 @@ module.exports.run = async (bot, message, args) => {
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else {
-            return message.channel.send("Please use the command like this: `"+ guildData.prefix +"liststatus (true/false)`")
+            return message.channel.send("Please use the command like this: `"+ guildData.prefix +"liststatus (allow/disallow)`")
         }
     } catch (error) {
         const c = require("../colors.json");
