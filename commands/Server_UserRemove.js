@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) => {
 
             if(!Target.length > 5) return message.reply('Please enter in a valid user id');
 
-            if(RXR.length < 10) returnmessage.reply('Please add a reason to remove this user.');
+            if(RXR.length < 10) return message.reply('Please add a reason to remove this user.');
 
             const req = await UserModel.findOne({ id: Target, guildID: message.guild.id })
             if(!req) return message.reply("User not found...");
