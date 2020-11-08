@@ -45,7 +45,7 @@ router.get("/easter", function(request, response){
 });
 router.get("/users", async (req, res, next) => {
   try {
-    const Nusers = await UserModel.find({}).sort({$natural:-1});
+    const Nusers = await UserModel.find({}).sort({ messages: -1 }).exec();
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
 
     let data = {
@@ -172,7 +172,7 @@ router.get("/s/:id/users", async (req, res, next) => {
         var cerr = "This server was blacklisted.";
         res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
       } 
-    const Nusers = await GUserModel.find({ guildID: req.params.id }).sort({$natural:-1});
+    const Nusers = await GUserModel.find({ guildID: req.params.id }).sort({ messages: -1 }).exec();
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
 
     let data = {

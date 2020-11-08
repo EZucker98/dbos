@@ -39,6 +39,10 @@ const User = Schema({
         type: String,
         default: "This user does not have a bio yet"
     },
+    messages: { 
+        type: Number, 
+        default: 0 
+    },
     github: {
         type: String,
         default: "none"

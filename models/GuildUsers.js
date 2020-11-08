@@ -35,6 +35,10 @@ const GUser = Schema({
     bio: {
         type: String,
         default: "This user does not have a bio yet"
+    },
+    messages: { 
+        type: Number, 
+        default: 0 
     }
 });
 

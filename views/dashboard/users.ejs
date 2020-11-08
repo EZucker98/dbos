@@ -48,7 +48,7 @@
     <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverapp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves top" style="transform: rotate(180deg);"><defs _ngcontent-serverapp-c56=""><path _ngcontent-serverapp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverapp-c56="" class="parallax"><use _ngcontent-serverapp-c56="" id="wave1t" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverapp-c56="" id="wave2t" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverapp-c56="" id="wave3t" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverapp-c56="" id="wave4t" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
     <br>
     <div class="heading">
-      <br>Users 
+      <br>Most active users 
       <!-- <div style="width: 38.5321%;">
         <div class="smile" style="background-color: #FFD700;"></div>
       </div>  -->
@@ -72,6 +72,7 @@
                     <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
                 <% } %> 
             </h3>
+            <h4 class="rankLev">Messages: <%= user.messages %></h4>
             <% if(user.admin == true){ %> <div class="admin">ADMIN</div> <% } %> 
                 <a class='btn_main dbtn' href="user/<%= user.id %>">
                     View

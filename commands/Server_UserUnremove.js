@@ -28,12 +28,12 @@ module.exports.run = async (bot, message, args) => {
 
 
             if(req.removed == null || req.removed == undefined){
-                const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
+                const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: false, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully unremoved: \`${doc.id}\` `);
                 // bot.users.cache.get(Target).send("Your profile has been unremoved from the "+ message.guild.name +" profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
             } else {
-                const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
-                message.reply(`I've succesfully removed: \`${doc.id}\` `);
+                const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: false, removeReason:  Reason }}, { new: true })
+                message.reply(`I've succesfully unremoved: \`${doc.id}\` `);
                 // bot.users.cache.get(Target).send("Your profile has been unremoved from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
             }
     } catch (error) {
