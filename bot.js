@@ -90,7 +90,11 @@ bot.on("message", async message => {
     }
     const userListed = await UserModel.findOne({ id: message.member.id })
     if(userListed){
-        var MsgCount = userListed.messages + 1; 
+        if(userListed.messages + 1 > 100){
+            var MsgCount = 0;
+        }else{
+            var MsgCount = userListed.messages + 1; 
+        }
     }
     if (!userListed) {
         var MsgCount = 1;
@@ -110,7 +114,11 @@ bot.on("message", async message => {
         const PremUListed = await GUserModel.findOne({ id: message.member.id, guildID: message.guild.id })
 
         if(PremUListed){
-           var messageCount = PremUListed.messages + 1; 
+            if(userListed.messages + 1 > 100){
+                var messageCount = 0;
+            }else{
+                var messageCount = userListed.messages + 1; 
+            } 
         }
         
 
