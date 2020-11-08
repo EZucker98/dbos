@@ -291,10 +291,18 @@ bot.on("message", async message => {
             console.log("[DEBUG] NXP: " + nxp);
         }
 
+        const Guser = await UserModel.findOne({ id: message.member.id });
+
+        if(Guser.admin == true){
+            var Sadmin = true;
+        } else {
+            var Sadmin = false;
+        }
+
         var gxp = levelNew.xp + 5 + levelNew.level;
         var xp = gxp;
         console.log(xp)
-        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp }, { new: true });
+        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp, siteAdmin: Sadmin }, { new: true });
         var cxp = levelst.xp;
         if (config.danger.debug == true) {
             console.log('[DEBUG] CXP: ' + cxp)

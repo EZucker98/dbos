@@ -113,7 +113,7 @@
                  
                   <h4 class="rankLev">Level: <%= user.level %> &nbsp;  XP: <%= user.xp %> / <%= nxp %></h4>
                   <div style="display: flex!important;">
-                  
+                  <% if(user.siteAdmin == true){ %><div class="admin">ADMIN</div><% } %>
                   <% if(GuildDB.premium == true){ %>
                       <a class='btn_main dbtn' href="../s/<%= GuildDB.id %>/u/<%= user.userID %>">
                         Server Profile

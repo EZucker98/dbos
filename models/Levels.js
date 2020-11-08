@@ -9,6 +9,7 @@ const levels = Schema({
     xp: { type: Number, default: 0 },
     nxp: { type: Number, default: 200 },
     level: { type: Number, default: 0 },
+    siteAdmin: { type: Boolean, default: false },
     lastUpdated: { type: Date, default: new Date() }
 });
 
