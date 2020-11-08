@@ -27,7 +27,7 @@ router.get("/", async function(request, response) {
 });
 
 router.get("/invite", function(request, response) {
-  response.redirect("https://discordapp.com/api/oauth2/authorize?client_id="+config.bot.id +"&permissions=8&scope=bot", {
+  response.redirect("https://discordapp.com/api/oauth2/authorize?client_id="+config.bot.id +"&permissions=470023303&scope=bot", {
     icon: config.iconUrl,  
     SiteName: config.siteName
   });
