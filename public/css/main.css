@@ -63,6 +63,10 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: radial-gradient(circle,var(--bg-2) 0,var(--bg-1) 100%)!important;
 }
+.icon.user {
+  height: 150px !important;
+  width: 150px !important;
+}
 .title .icon.alive{
     background-color: var(--primary);
     -webkit-box-shadow: inset 0px 0px 6px -1px var(--primary);
