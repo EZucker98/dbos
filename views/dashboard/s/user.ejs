@@ -95,9 +95,13 @@
           <% }
           } %> 
         </h1>
-        <% if(dbuser.removed == false){ %>
+        <% if(dbuser.removed == false){ 
+          if(dbuser.messages = 1){%>
+            <h4 class="rankLev"><%= dbuser.messages %> Message</h4>
+         <% } else {
+          %>
           <h4 class="rankLev"><%= dbuser.messages %> Messages</h4>
-        <% } %>
+        <% }} %>
     </div>
     <div class="container" style="padding-bottom: 0px !important;">
                 <a class='btn_main dbtn' href="/s/<%= dguild.id %>">
