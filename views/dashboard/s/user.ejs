@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="/css/pageContent.css">
   <link rel="stylesheet" href="/css/comps.css">
   <link rel="stylesheet" href="/css/errs.css">
-  <link rel="shortcut icon" href="<%= serverCore.iconURL() %>" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= dguild.icon %>" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
   <meta name="description" content="<%= dguild.name %> - User - <%= username %>">
   <meta name="twitter:card" value="summary">
@@ -67,7 +67,7 @@
       <br>
       <br>
       <div class="userIcon">
-      <img class="icon" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= serverCore.iconURL() %> <% } %>"> 
+      <img class="icon" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= dguild.icon %> <% } %>"> 
       <% if(dbuser.removed == false){ %>    
         <% if(dbuser.siteAdmin == true){ %>
             <div class="teamBadge admin"><span>ADMIN</span></div>

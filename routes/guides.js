@@ -142,12 +142,18 @@ router.get("/:id/leaderboard", async (req, res, next) => {
         var cerr = "This server was blacklisted.";
         res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
       } 
+      if(Server.invite == "none" || Server.invite == null || Server.invite == undefined){
+        var invAv = false;
+      } else {
+        var invAv = true;
+      }
           var users = await levels.find({ guildID: req.params.id }).sort({ level: -1, xp: -1 }).exec();
           let data = {
               Udata: users,
               server: req.server,
               serverCore: guildSingle,
               GuildDB: Server,
+              hasInv: invAv,
               isProfile: true,
               icon: config.iconUrl,
               SiteName: config.siteName
@@ -174,11 +180,16 @@ router.get("/s/:id/users", async (req, res, next) => {
       } 
     const Nusers = await GUserModel.find({ guildID: req.params.id }).sort({ messages: -1 }).exec();
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
-
+    if(Server.invite == "none" || Server.invite == null || Server.invite == undefined){
+      var invAv = false;
+    } else {
+      var invAv = true;
+    }
     let data = {
       serverCore: guildSingle,
       GuildDB: Server,
       nusers: Nusers,
+      hasInv: invAv,
       icon: config.iconUrl,
       SiteName: config.siteName
     }
