@@ -122,3 +122,20 @@
     filter: brightness(50%) !important;
     cursor: not-allowed;
 }
+.rankLev {
+    border: 2px solid var(--accent);
+    padding: 4px;
+    margin: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: var(--accent);
+    color: var(--font-gray);
+    width: 70%;
+    text-align: center;
+    justify-content: center;
+    display: inline;
+}
