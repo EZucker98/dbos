@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-const UserModel = require('../models/GuildUsers')
+const UserModel = require('../models/GuildUsers');
+const GUserModel = require('../models/User');
 const { connect } = require('mongoose');
 const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
@@ -9,6 +10,12 @@ module.exports.run = async (bot, message, args) => {
         if(guild.premium == false) return message.reply("The server needs premium to use this command!")
             if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply("You are lacking the following permissions: `BAN_MEMBERS`")
             const Target = args[0];
+
+            const Tuser = await UserModel.findOne({ id: Target, guildID: message.guild.id });
+            if(!Tuser) return message.reply("This user was not found in the database...");
+
+            const Guser = await GUserModel.findOne({ id: Target });
+            if(Guser.admin == true) return message.reply("This profile cannot be removed since the user is a global Administrator!");
 
             if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
             const RXR = args.slice(1).join(' ');

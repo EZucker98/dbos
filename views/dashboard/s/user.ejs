@@ -68,6 +68,10 @@
       <br>
       <div class="userIcon">
       <img class="icon" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= icon %> <% } %>"> 
+      <% if(dbuser.removed == false){ %>    
+        <% if(dbuser.siteAdmin == true){ %>
+            <div class="teamBadge admin"><span>ADMIN</span></div>
+      <% } }%>  
       </div>
 
     <h1 style="font-size: 30px !important;">
