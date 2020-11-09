@@ -65,4 +65,8 @@ CL -> Command Log - Enabled with `"commandLogging": true`
 
 - (prefix)setuser [userid] (role)
 - (prefix)unsetuser [userid] (role)
+
+- (prefix)premium (serverid) (true/false)
+
+- (prefix)clearbio (Userid) (New bio)
 ``` 

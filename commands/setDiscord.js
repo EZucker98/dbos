@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) => {
         if(!message.content.includes("https://discord.gg/")) return message.reply('Please provide a valid discord url, example `https://discord.gg/83nXAu4nSG`');
 
         const discordServer = args[0];
+        if(args[1]) return message.reply("You didn\'t provide a server invite, example `https://discord.gg/83nXAu4nSG`")
         const req = await UserModel.findOne({ id: message.member.id })
         if(!req){
             const doc = new UserModel({ id: message.member.id, discordServer: discordServer })

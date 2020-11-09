@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) => {
         if(!message.content.includes("https://github.com/")) return message.reply('Please provide a valid github url, example `https://github.com/wezacon`');
 
         const github = args[0];
+        if(args[1]) return message.reply('You didn\'t provide a github url, example `https://github.com/wezacon`');
         const req = await UserModel.findOne({ id: message.member.id })
         if(!req){
             const doc = new UserModel({ id: message.member.id, github: github })
