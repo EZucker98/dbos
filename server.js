@@ -36,6 +36,7 @@ if(config.server.invite == ''){
 );
 app.use(require("./routes/err.js"));
 app.use(require("./routes/api.js"));
+app.use(require("./routes/api.dis.oauth.js"));
 app.use(require("./routes/api.oauth.js"));
 app.use(require("./routes/guides"));
 const listener = app.listen(varPORT, function() {
