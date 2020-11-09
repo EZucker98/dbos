@@ -422,7 +422,7 @@ bot.on("guildCreate", async guild => {
     var serverid = guild.id;
     const req = await GuildModel.findOne({ id: serverid, name: guild.name, icon: guild.iconURL() })
     if (!req) {
-        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix, name: message.guild.name, icon: message.guild.iconURL() })
+        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix, name: guild.name, icon: message.guild.iconURL() })
         await init.save();
     }
 
