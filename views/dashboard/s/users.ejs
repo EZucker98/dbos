@@ -75,7 +75,8 @@
       <% if(GuildDB.premium == true){ %>
         <div class="cards">
           
-                  <% nusers.forEach(user => { 
+                  <% nusers.forEach((user, i) => { 
+                    const Rank = i + 1;
           if(user.removed == false){ 
         %>
             <div class="card">
@@ -96,6 +97,9 @@
                     <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
                 <% } %> 
             </h3>
+            <h4 class="rankLev">#<%= Rank %></h4>
+                  <br>
+                  <br>
             <h4 class="rankLev"><%= user.messages %> Messages</h4>
             <% if(user.siteAdmin == true){ %> <div class="admin">ADMIN</div> <% } %> 
             <div style="display: flex!important;">

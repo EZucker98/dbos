@@ -124,6 +124,13 @@
         <% if(dbuser.removed == false){ %>
           <h4 class="rankLev"><%= dbuser.messages %> Messages</h4>
         <% } %>
+        <% if(dbuser.removed == false){ %>
+          <% if(hasWork == true){ %>
+            <br>
+            <br>
+          <h4 class="rankLev"><span style="color: var(--font-gray); filter: brightness(80%);">occupation:</span> <%= occupation %></h4>
+          <% } %>
+        <% } %>
         <div class="container" style="padding-bottom: 0px !important;">
             <% 
             if(dbuser.removed == false){

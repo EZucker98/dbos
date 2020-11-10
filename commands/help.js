@@ -23,8 +23,8 @@ module.exports.run = async (bot, message, args) => {
                     helpEmbed.setThumbnail(config.iconUrl)
                     helpEmbed.addFields(
                         { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server\n${prefix}rank\n${prefix}leaderboard`, inline: false },
-                        { name: '**Profile**', value: `${prefix}bio - set your bio for your profile\n${prefix}discordurl - set your server url for your profile\n${prefix}giturl - set your github url for your profile\n\n${prefix}page - view your profile\n${prefix}liststatus - Pick the visibility of your profile`, inline: false },
-                        { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}ban\n${prefix}clear`, inline: false },
+                        { name: '**Profile**', value: `${prefix}bio - set your bio for your profile\n${prefix}discordurl - set your server url for your profile\n${prefix}giturl - set your github url for your profile\n${prefix}occupation - Set your occupation\n\n${prefix}page - view your profile\n${prefix}liststatus - Pick the visibility of your profile`, inline: false },
+                        { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}ban\n${prefix}clear\n${prefix}log`, inline: false },
                     )
                     if(req.premium == true){
                         helpEmbed.addFields(

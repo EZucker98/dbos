@@ -42,7 +42,7 @@ router.get("/easter", function(request, response){
 });
 router.get("/users", async (req, res, next) => {
   try {
-    const Nusers = await UserModel.find({}).sort({ messages: -1 }).exec();
+    const Nusers = await UserModel.find({}).sort({ messages: -1 }).limit(100).exec();
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
 
     let data = {
@@ -100,6 +100,12 @@ router.get("/user/:id", async (req, res, next) => {
             var hasGit = true;
           }
 
+          if(userListed.occupation == "" || userListed.occupation == undefined || userListed.occupation == null || userListed.occupation == "none"){
+            var hasWork = false;
+          } else {
+            var hasWork = true;
+          }
+
             let data = {
                 user: req.user,
                 userProfile: user,
@@ -114,6 +120,8 @@ router.get("/user/:id", async (req, res, next) => {
                 bio: userBio,
                 hasServer: hasServer,
                 hasGit: hasGit,
+                hasWork: hasWork,
+                occupation: userListed.occupation,
                 gitLink: userListed.github,
                 serverInvite: userListed.discordServer,
                 icon: config.iconUrl,
@@ -144,7 +152,7 @@ router.get("/:id/leaderboard", async (req, res, next) => {
       } else {
         var invAv = true;
       }
-          var users = await levels.find({ guildID: req.params.id }).sort({ level: -1, xp: -1 }).exec();
+          var users = await levels.find({ guildID: req.params.id }).sort({ level: -1, xp: -1 }).limit(100).exec();
           let data = {
               Udata: users,
               server: req.server,
@@ -175,7 +183,7 @@ router.get("/s/:id/users", async (req, res, next) => {
         var cerr = "This server was blacklisted.";
         res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
       } 
-    const Nusers = await GUserModel.find({ guildID: req.params.id }).sort({ messages: -1 }).exec();
+    const Nusers = await GUserModel.find({ guildID: req.params.id }).sort({ messages: -1 }).limit(100).exec();
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
     if(Server.invite == "none" || Server.invite == null || Server.invite == undefined){
       var invAv = false;

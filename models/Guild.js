@@ -8,6 +8,10 @@ const Guild = Schema({
         type: String,
         default: config.bot.prefix
     },
+    logChannel: {
+        type: String,
+        default: "none"
+    },
     name: {
         type: String,
         default: "message.guild.name"

@@ -39,6 +39,10 @@ const User = Schema({
         type: String,
         default: "This user does not have a bio yet"
     },
+    occupation: {
+        type: String,
+        default: "none"
+    },
     messages: { 
         type: Number, 
         default: 0 

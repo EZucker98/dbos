@@ -65,7 +65,8 @@
     </div>
     <div class="content">
         <div class="cards">
-      <% nusers.forEach(user => { 
+      <% nusers.forEach((user, i) => { 
+          const Rank = i + 1;
           if(user.removed == false){
             if(user.allowListing == true){ 
         %>
@@ -82,6 +83,9 @@
                     <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
                 <% } %> 
             </h3>
+            <h4 class="rankLev">#<%= Rank %></h4>
+                  <br>
+                  <br>
             <h4 class="rankLev"><%= user.messages %> Messages</h4>
             <% if(user.admin == true){ %> <div class="admin">ADMIN</div> <% } %> 
                 <a class='btn_main dbtn' href="user/<%= user.id %>">

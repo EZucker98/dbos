@@ -62,13 +62,13 @@ bot.on('ready', async () => {
             })
         })
     }
+
     setTimeout(StartShards, 1000);
     setTimeout(() => {
         bot.user.setPresence({ activity: { name: botActivity }, status: botStatus })
     }, 2000);
-
-
 })
+
 bot.on("message", async message => {
     if (message.channel.type === "dm") return;
     if (message.author.bot) return;
@@ -422,7 +422,7 @@ bot.on("guildCreate", async guild => {
     var serverid = guild.id;
     const req = await GuildModel.findOne({ id: serverid, name: guild.name, icon: guild.iconURL() })
     if (!req) {
-        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix, name: guild.name, icon: message.guild.iconURL() })
+        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix, name: guild.name, icon: guild.iconURL() })
         await init.save();
     }
 
@@ -469,12 +469,9 @@ bot.on("guildDelete", guild => {
         bot.channels.cache.get(log.channelLogId).send(deleteEmbed);
     }
 });
-bot.on("guildMemberAdd", async member => {
-    var UID = member.id;
-    const levelstem = await levels.findOne({ guildID: member.guild.id, userID: UID })
-    if (!levelstem) {
-        const levelstemInit = new levels({ guildID: member.guild.id, userID: UID, userTag: messageAuthor })
-        await levelstemInit.save();
-    }
-});
+
+
+module.exports = {
+    bot: bot
+}
 bot.login(config.bot.token);
