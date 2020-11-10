@@ -54,13 +54,14 @@ bot.on('ready', async () => {
 
             jsfile.forEach((f) => {
                 let props = require(`./commands/${f}`);
-                console.log(`SHARD: [${f}] IS ONLINE\n-------------------------`);
+                console.info(`[CMD]`, `[${f}] IS ONLINE`);
                 bot.commands.set(props.help.name, props);
                 props.help.aliases.forEach(alias => {
                     bot.aliases.set(alias, props.help.name);
                 })
             })
         })
+        
     }
 
     setTimeout(StartShards, 1000);
@@ -211,11 +212,13 @@ bot.on("message", async message => {
     let commandfile = bot.commands.get(cmd.slice(oprix.length));
     if (commandfile) commandfile.run(bot, message, args);
     if (config.bot.commandLogging == true) { console.log('CL -> ' + message.content + ' command used in: [' + message.guild.name + '] - By: ' + messageAuthor) }
-    if (bot.commands.has(cmd)) {
+    // if (bot.commands.has(cmd)) {
         command = bot.commands.get(cmd);
-    } else if (bot.aliases.has(cmd)) {
-        command = bot.commands.get(bot.aliases.get(cmd));
-    }
+    // } 
+    
+    // else if (bot.aliases.has(cmd)) {
+    //     command = bot.commands.get(bot.aliases.get(cmd));
+    // }
     try {
         command.run(bot, message, args);
     } catch (e) {
