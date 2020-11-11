@@ -54,7 +54,7 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand navbar-dark">
+  <nav class="navbar navbar-expand navbar-dark <% if(dbuser.removed = true){ %>error-background<% } %>">
     <div class="nav navbar-nav">
       <div class="icon">
        <span style="color: var(--primary);">D</span>BOS
@@ -155,7 +155,7 @@
           <% if(hasWork == true){ %>
             <br>
             <br>
-          <h4 class="rankLev"><span style="color: var(--font-gray); filter: brightness(80%);">occupation:</span> <%= occupation %></h4>
+          <h4 class="rankLev"><span style="color: var(--font-gray); filter: brightness(80%);">Occupation:</span> <%= occupation %></h4>
           <% } %>
         <% } %>
         <div class="container" style="padding-bottom: 0px !important;">
@@ -170,7 +170,7 @@
             if(dbuser.removed == false){
             if(hasGit){ %>
                 <a class='btn_main dbtn' href="<%= gitLink %> " target="_blank">
-                    <i class="fa fa-github"></i> Github
+                    <i class="fab fa-github"></i> Github
                 </a>
             <% } 
               }

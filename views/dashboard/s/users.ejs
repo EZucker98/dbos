@@ -102,10 +102,10 @@
       <% if(GuildDB.premium == true){ %>
         <div class="cards">
           
-                  <% nusers.forEach((user, i) => { 
+                  <% nusers.forEach((user, i) => {
+                    if(user.removed == false){  
                     const Rank = i + 1;
-          if(user.removed == false){ 
-        %>
+                  %>
             <div class="card">
                 <div>
                 <img src="<%= user.profileImage %>" style="position: relative;" alt="">
