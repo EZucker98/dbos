@@ -244,7 +244,13 @@ router.get("/s/:id/u/:userID", async (req, res, next) => {
     res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
 }
 });
-
+router.get("/docs", async (req, res) => {
+  let data = {
+    icon: config.iconUrl,
+    SiteName: config.siteName
+  }
+  res.render("../views/dashboard/docs/home.ejs", data);
+});
 router.get("/s/:id", async (req, res, next) => {
   const guildSingle = await bot.guilds.fetch(req.params.id);
   if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})

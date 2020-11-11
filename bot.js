@@ -128,9 +128,12 @@ bot.on("message", async message => {
                 var removedState = true;
                 var removeReason = userListed.removeReason;
             } else {
-                if(userListed.removed == false){
+                if(PremUListed.removed == false){
                     var removedState = false; 
                     var removeReason = PremUListed.removeReason;                   
+                } else {
+                    var removedState = true; 
+                    var removeReason = PremUListed.removeReason;  
                 }
             }
             if(userListed.admin == true){
