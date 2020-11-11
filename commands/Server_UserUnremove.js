@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
             if(!Tuser) return message.reply("This user was not found in the database...");
 
             const Guser = await GUserModel.findOne({ id: Target });
-            if(Guser.admin == true) return message.reply("This profile cannot be removed since the user is a global Administrator!");
+            // if(Guser.admin == true) return message.reply("This profile cannot be unremoved since the user is a global Administrator!");
             if(Guser.removed == true) return message.reply("This profile can't be unremoved since it was removed site wide by one of the DBOS staff members!");
             if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
             const RXR = args.slice(1).join(' ');
@@ -24,7 +24,6 @@ module.exports.run = async (bot, message, args) => {
             }
             const RSX = RXR.replace(/<[^>]+>/g, '');
             const Reason = nl2br(RSX);
-            if(Target === message.member.id) return message.reply('I can\'t remove you.');
 
             if(!Target) return message.reply('Please enter in a valid user id');
 
@@ -37,11 +36,11 @@ module.exports.run = async (bot, message, args) => {
             if(req.removed == null || req.removed == undefined){
                 const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: false, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully unremoved: \`${doc.id}\` `);
-                bot.users.cache.get(req.id).send("Your profile has been unremoved from the "+ message.guild.name +" profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
+                bot.users.cache.get(req.id).send("Your profile has been unremoved from the "+ message.guild.name +" profile listing\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
             } else {
                 const doc = await UserModel.findOneAndUpdate({ id: Target, guildID: message.guild.id}, { $set: { removed: false, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully unremoved: \`${doc.id}\` `);
-                bot.users.cache.get(req.id).send("Your profile has been unremoved from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
+                bot.users.cache.get(req.id).send("Your profile has been unremoved from the "+ message.guild.name +" profile listing\nProfile: " + config.siteUrl + "/s/" + message.guild.id + "/u/" + Target);
             }
     } catch (error) {
         const c = require("../colors.json");
