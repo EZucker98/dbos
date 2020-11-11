@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
             const removeEmbed = new Discord.MessageEmbed()
             .setTitle('**New guild Premium**')
             .setColor(colors.premium)
-            .setDescription(config.siteName + " has Demoted a user on the listing.")
+            .setDescription(config.siteName + " has given a server premium.")
             .setTimestamp()
             .addFields(
                 { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },

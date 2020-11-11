@@ -34,25 +34,39 @@ module.exports.run = async (bot, message, args) => {
                 const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully removed: \`${doc.id}\` Reason: \`${RSX}\` `);
                 bot.users.cache.get(Target).send("Your profile has been removed from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/user/" + doc.id);
+                const log = config.bot.moderation.entryLogging;
+                const colors = require("../colors.json");
+                const removeEmbed = new Discord.MessageEmbed()
+                .setTitle('**Removed User**')
+                .setColor(colors.danger)
+                .setDescription(config.siteName + " has removed a user from the listing.")
+                .setTimestamp()
+                .addFields(
+                    { name: '**Moderator**', value: `${message.member.user.tag}`, inline: true },
+                    { name: '**Reason**', value: `${RXR}`, inline: true },
+                    { name: '**Removed User**', value: `${req.username} - ${Target}`, inline: true }
+                )
+                .setFooter('© Wezacon.com')
+                bot.channels.cache.get(log.channelLogId).send(removeEmbed);
             } else {
                 const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { removed: true, removeReason:  Reason }}, { new: true })
                 message.reply(`I've succesfully removed: \`${doc.id}\` Reason: \`${RSX}\` `);
                 bot.users.cache.get(Target).send("Your profile has been removed from the profile listing, Reason: `"+ RSX +"`\nProfile: " + config.siteUrl + "/user/" + doc.id);
+                const log = config.bot.moderation.entryLogging;
+                const colors = require("../colors.json");
+                const removeEmbed = new Discord.MessageEmbed()
+                .setTitle('**Removed User**')
+                .setColor(colors.danger)
+                .setDescription(config.siteName + " has removed a user from the listing.")
+                .setTimestamp()
+                .addFields(
+                    { name: '**Moderator**', value: `${message.member.user.tag}`, inline: true },
+                    { name: '**Reason**', value: `${RXR}`, inline: true },
+                    { name: '**Removed User**', value: `${req.username} - ${Target}`, inline: true }
+                )
+                .setFooter('© Wezacon.com')
+                bot.channels.cache.get(log.channelLogId).send(removeEmbed);
             }
-            const log = config.bot.moderation.entryLogging;
-            const colors = require("../colors.json");
-            const removeEmbed = new Discord.MessageEmbed()
-            .setTitle('**Removed User**')
-            .setColor(colors.danger)
-            .setDescription(config.siteName + " has removed a user from the listing.")
-            .setTimestamp()
-            .addFields(
-                { name: '**Moderator**', value: `${message.member.user.tag}`, inline: true },
-                { name: '**Reason**', value: `${RXR}`, inline: true },
-                { name: '**Removed User**', value: `${req.username} - ${Target}`, inline: true }
-            )
-            .setFooter('© Wezacon.com')
-            bot.channels.cache.get(log.channelLogId).send(removeEmbed);
     } catch (error) {
         const c = require("../colors.json");
         const Err_1 = new Discord.MessageEmbed()

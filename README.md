@@ -68,5 +68,5 @@ CL -> Command Log - Enabled with `"commandLogging": true`
 
 - (prefix)premium (serverid) (true/false)
 
-- (prefix)clearbio (Userid) (New bio)
+- (prefix)forcebio (Userid) (New bio)
 ``` 

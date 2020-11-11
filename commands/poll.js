@@ -13,6 +13,8 @@ module.exports.run = async (bot, message, args) => {
         .setColor(colors.info)
         .setAuthor(message.member.user.tag, message.author.displayAvatarURL({ dynamic: true, format: 'webp' }))
         .setDescription(msgArgs)
+        .setFooter('© Wezacon.com')
+        .setTimestamp()
         return message.channel.send(embed2).then(messageReaction => {
             messageReaction.react("⬆️");
             messageReaction.react("⬇️");
