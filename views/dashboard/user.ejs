@@ -54,10 +54,14 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand navbar-dark <% if(dbuser.removed == true){ %>error-background<% } %>">
+  <nav class="navbar navbar-expand navbar-dark <% if(dbuser.removed == true){ %>error-background<% } %> <% if(dbuser.allowListing == false){ %>info-background<% } %>">
     <div class="nav navbar-nav">
       <div class="icon">
-       <span style="color: var(--primary);">D</span>BOS
+      <% if(dbuser.allowListing == false){ %> 
+          <span style="color: var(--font);">D</span>BOS        
+        <% } else {%>
+          <span style="color: var(--primary);">D</span>BOS
+      <% } %> 
       </div>
     <a class="nav-item nav-link" href="/docs" title="Docs">
       <i class="fa fa-book"></i>
