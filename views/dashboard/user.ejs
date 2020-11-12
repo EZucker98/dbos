@@ -121,7 +121,7 @@
       <img class="icon user" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= icon %> <% } %>">
       <% if(dbuser.removed == false){ %>    
             <% if(admin == true){ %>
-                <div class="teamBadge admin"><span>ADMIN</span></div>
+              <div class="teamBadge admin"><span><% if(dbuser.id == "766238334930386944"){ %>SYSTEM<% } else {%>ADMIN<% } %></span></div>
             <% } }%>  
       </div>
 

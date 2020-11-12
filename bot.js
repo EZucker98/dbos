@@ -104,7 +104,7 @@ bot.on("message", async message => {
         var MsgCount = 1;
         const init = new UserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, messages: MsgCount })
         await init.save();
-        message.reply("Your profile has been listed on: " + config.siteUrl + "/user/" + message.member.id + "\nYou can make your profile `private` by using: `"+ oprix +"liststatus (disallow/allow)`\nThis can be changed at any given time and is not needed to be changed.");
+        // message.reply("Your profile has been listed on: " + config.siteUrl + "/user/" + message.member.id + "\nYou can make your profile `private` by using: `"+ oprix +"liststatus (disallow/allow)`\nThis can be changed at any given time and is not needed to be changed.");
     } else {
         const init = await UserModel.findOneAndUpdate({ id: message.member.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MsgCount }, { new: true });
         if (config.danger.debug == true) {
@@ -356,7 +356,7 @@ bot.on("message", async message => {
                     if (!UserDB) {
                         const init = new UserModel({ id: message.member.id })
                         await init.save();
-                        message.reply("Your profile has been listed on: " + config.siteUrl + "/user/" + message.member.id + "\nYou can make your profile `private` by using: `"+ oprix +"liststatus (disallow/allow)`\nThis can be changed at any given time and is not needed to be changed.\n||This message will only be shown one time!||");
+                        // message.reply("Your profile has been listed on: " + config.siteUrl + "/user/" + message.member.id + "\nYou can make your profile `private` by using: `"+ oprix +"liststatus (disallow/allow)`\nThis can be changed at any given time and is not needed to be changed.\n||This message will only be shown one time!||");
                     }
                     const rank = new canvacord.Rank()
                         .setAvatar(message.author.displayAvatarURL({ dynamic: false, format: 'png' }))
