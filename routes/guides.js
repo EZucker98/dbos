@@ -42,9 +42,10 @@ router.get("/easter", function(request, response){
 });
 router.get("/users", async (req, res, next) => {
   try {
+    // const Nusers = await UserModel.find({ dataCleared: false }).sort({ messages: -1 }).limit(100).exec();
     const Nusers = await UserModel.find({}).sort({ messages: -1 }).limit(100).exec();
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
-
+    //  || user.dataCleared == null || user.dataCleared == undefined || user.dataCleared == false
     let data = {
       // rusers: Rusers,
       nusers: Nusers,
@@ -81,6 +82,7 @@ router.get("/user/:id", async (req, res, next) => {
     const userListed = await UserModel.findOne({ id: req.params.id });
     try {
       if(userListed){
+          if(userListed.dataCleared == true) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: "This user removed their data"});
           let VERIFIED_DEVELOPER = (await user.fetchFlags()).has("VERIFIED_DEVELOPER")
             
           if(userListed.bio == "" || userListed.bio == undefined || userListed.bio == null){
@@ -175,7 +177,7 @@ router.get("/:id/leaderboard", async (req, res, next) => {
 
 router.get("/s/:id/users", async (req, res, next) => {
   const guildSingle = await bot.guilds.fetch(req.params.id);
-  if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})
+  if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: "Guild not found"})
   const Server = await GuildModel.findOne({ id: req.params.id });
   try {
     if(Server){

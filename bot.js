@@ -90,6 +90,9 @@ bot.on("message", async message => {
         console.log("[DEBUG] " + messageAuthor + " " + UP)
     }
     const userListed = await UserModel.findOne({ id: message.member.id })
+    if(config.danger.debug == true){
+        console.warn('[DEBUG]', userListed.username + ' ' + userListed.dataCleared);
+    }
     if(userListed){
         if(userListed.messages + 1 > 100){
             var MsgCount = 0;

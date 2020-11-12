@@ -23,6 +23,10 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    dataCleared: {
+        type: Boolean,
+        default: false
+    },
     removeReason: {
         type: String,
         default: "This user violated our TOS"
