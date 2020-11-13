@@ -106,7 +106,7 @@
       <img class="icon user" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= dguild.iconURL() %> <% } %>"> 
       <% if(dbuser.removed == false){ %>    
         <% if(dbuser.siteAdmin == true){ %>
-        <div class="teamBadge admin"><span><% if(dbuser.id == "766238334930386944"){ %>SYSTEM<% } else {%>ADMIN<% } %></span></div>
+        <div class="teamBadge admin"><span><% if(dbuser.id == "557218928368156674"){ %>DEVELOPER<% } else if(dbuser.id == "766238334930386944"){ %>SYSTEM<% } else {%>ADMIN<% } %></span></div>
       <% } }%>  
       </div>
 
@@ -116,6 +116,11 @@
       <% } else { %>
        <strong style="font-weight: 900;">Removed</strong> 
       <% } %>
+      <%
+      if(dbuser.removed == false){ %>
+      <% if(dbuser.siteModerator){ %>
+        <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
+      <% }} %>
      <% if(dbuser.removed == false){ %>
                 <% if(dbuser.serverSuperAdmin){ %>
                     <i class="fa fa-tools" style="color: #25a109;" title="Server Staff"></i>

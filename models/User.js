@@ -7,6 +7,10 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    moderator: {
+        type: Boolean,
+        default: false
+    },
     contributor: {
         type: Boolean,
         default: false

@@ -5,7 +5,7 @@ const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
     try {
         if(!message.guild.id == config.bot.moderation.server.id) return;
-            if(!message.member.roles.cache.has(config.bot.moderation.server.adminRoleId)) return;
+            if(!message.member.roles.cache.has(config.bot.moderation.server.moderatorRoleId)) return;
             const Target = args[0];
 
             if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");

@@ -55,18 +55,18 @@ CL -> Command Log - Enabled with `"commandLogging": true`
 **DISCLAIMER:** The following will **not** be displayed on the help command.
 
 (prefix) = custom bot prefix
-[ITEM] = parameter
+[ITEM] = parameter 
 ```
-- (prefix)whitelist [ServerID]
-- (prefix)blacklistlist [ServerID]
+- (prefix)whitelist [ServerID]   - can be used by admins
+- (prefix)blacklistlist [ServerID]    - can be used by admins
 
-- (prefix)listremove [UserID] [Reason]
-- (prefix)listunremove [UserID]
+- (prefix)listremove [UserID] [Reason]    - can be used by moderators
+- (prefix)listunremove [UserID]    - can be used by moderators
 
-- (prefix)setuser [userid] (role)
-- (prefix)unsetuser [userid] (role)
+- (prefix)setuser [userid] (role)    - can be used by moderators (only verify)
+- (prefix)unsetuser [userid] (role)    - can be used by moderators (only verify)
 
-- (prefix)premium (serverid) (true/false)
+- (prefix)premium (serverid) (true/false)    - can be used by moderators
 
-- (prefix)forcebio (Userid) (New bio)
+- (prefix)forcebio (Userid) (New bio)    - can be used by admins
 ``` 

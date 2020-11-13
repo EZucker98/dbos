@@ -16,6 +16,10 @@ const GUser = Schema({
         type: Boolean,
         default: false
     },
+    siteModerator: {
+        type: Boolean,
+        default: false
+    },
     serverModerator: {
         type: Boolean,
         default: false

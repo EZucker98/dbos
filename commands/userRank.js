@@ -7,18 +7,39 @@ module.exports.run = async (bot, message, args) => {
     try {
         const guildData = await GuildModel.findOne({ id: message.guild.id })
         if(!message.guild.id == config.bot.moderation.server.id) return;
-        if(!message.member.roles.cache.has(config.bot.moderation.server.adminRoleId)) return;
+        if(!message.member.roles.cache.has(config.bot.moderation.server.moderatorRoleId)) return;
         const Target = args[0];
         const Rank = args[1];
     
         if(!Target) return message.channel.send("Please insert a valid user ID")
         if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
-        if(!Rank) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"setuser (userid) (rank)`\nAvailable ranks: `admin, contributor, verified`")
+        if(!Rank) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"setuser (userid) (rank)`\nAvailable ranks: `admin, moderator, contributor, verified`")
 
         const TargetData = await UserModel.findOne({ id: Target });
         if(!TargetData) return message.channel.send("User not found.");
+        if(Rank == "moderator") {
+            if(!message.member.roles.cache.has(config.bot.moderation.server.adminRoleId)) return;
+            const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { moderator: true }}, { new: true });
+            message.channel.send("Updated user, they are now not a moderator!");
 
-        if(Rank == "contributor") {
+            // bot.users.cache.get(Target).send("Your moderator role has been removed.");
+
+            const log = config.bot.moderation.entryLogging;
+            const colors = require("../colors.json");
+            const removeEmbed = new Discord.MessageEmbed()
+            .setTitle('**Promoted User**')
+            .setColor(colors.success)
+            .setDescription(config.siteName + " has Promoted a user on the listing.")
+            .setTimestamp()
+            .addFields(
+                { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },
+                { name: '**Promoted**', value: `${doc.username} - ${Target}`, inline: true },
+                { name: '**Added rank**', value: `moderator`, inline: true }
+            )
+            .setFooter('© Wezacon.com')
+           return bot.channels.cache.get(config.bot.moderation.entryLogging.channelLogId).send(removeEmbed);
+            } else if(Rank == "contributor") {
+            if(!message.member.roles.cache.has(config.bot.moderation.server.adminRoleId)) return;
             const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { contributor: true }}, { new: true });
             message.channel.send("Updated user, they are now a contributor!");
             // bot.users.cache.get(Target).send("You have been given the contributor role!");

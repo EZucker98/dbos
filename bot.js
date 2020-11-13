@@ -168,18 +168,23 @@ bot.on("message", async message => {
             } else {
                 var SiteAdmin = false;
             }
+            if(userListed.moderator == true){
+                var Sitemoderator = true;
+            } else {
+                var Sitemoderator = false;
+            }
             var MESG = PremUListed.messages + 1; 
             if(MESG === 100){
                 message.reply("Good job! You have reached " + MESG + " Messages on "+ message.guild.name +" :tada:");
             }
             if(message.member.hasPermission("MANAGE_GUILD")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
             } else if(message.member.hasPermission("ADMINISTRATOR")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
             } else if(message.member.hasPermission("BAN_MEMBERS")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
              } else {
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
             }
             if (config.danger.debug == true) {
                 console.log('[DEBUG] [PREMIUM LIST] ' + message.member.user.tag + ' on: ' + message.guild.name);

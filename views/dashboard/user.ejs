@@ -121,7 +121,7 @@
       <img class="icon user" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= icon %> <% } %>">
       <% if(dbuser.removed == false){ %>    
             <% if(admin == true){ %>
-              <div class="teamBadge admin"><span><% if(dbuser.id == "766238334930386944"){ %>SYSTEM<% } else {%>ADMIN<% } %></span></div>
+              <div class="teamBadge admin"><span><% if(dbuser.id == "557218928368156674"){ %>DEVELOPER<% } else if(dbuser.id == "766238334930386944"){ %>SYSTEM<% } else {%>ADMIN<% } %></span></div>
             <% } }%>  
       </div>
 
@@ -131,8 +131,13 @@
       <% } else { %>
        <strong style="font-weight: 900;">Removed</strong> 
       <% } %>
-     <% if(dbuser.removed == false){
-        if(verified){ %>
+     <% if(dbuser.removed == false){ %>
+      <%
+      if(dbuser.removed == false){ %>
+      <% if(dbuser.moderator){ %>
+        <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
+      <% }} %>
+        <% if(verified){ %>
               <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
           <% } 
       }
@@ -145,8 +150,11 @@
           } %> 
          <div class="profilebadges" style="position: relative; justify-content: center!important; align-items: center; text-align: center; display: flex; margin: 30px;">
             <%
-            if(dbuser.removed == false){
-              if(contributor == true){ %>
+            if(dbuser.removed == false){ %>
+            <% if(dbuser.moderator){ %>
+              <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
+            <% } %>
+             <% if(contributor == true){ %>
                   <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%; margin-bottom: 10px;"></div>
               <% } 
             }%>  
