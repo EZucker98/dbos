@@ -23,6 +23,16 @@ if(config.bot.status.activity == "default"){
 }
 var blackListMsgStatus = config.bot.moderation.blackListing.enabled;
 var blackListMsg = config.bot.moderation.blackListing.errorMessage;
+setInterval(async () =>{
+    const globalList = await UserModel.find();
+    const serverList = await GUserModel.find();
+    globalList.forEach(async (x) => {
+        const reset = await UserModel.findOneAndUpdate({ id: x.id }, { messages: 0 });
+    }, 86400000);
+    serverList.forEach(async (x) => {
+        const reset = await GUserModel.findOneAndUpdate({ id: x.id }, { messages: 0 });
+    });
+}, 86400000)
 bot.on('ready', async () => {
     console.log('MAIN SHARD ONLINE\n-------------------------')
     if (config.bot.commandLogging == true) {
@@ -89,30 +99,29 @@ bot.on("message", async message => {
     if(config.danger.debug == true){
         console.log("[DEBUG] " + messageAuthor + " " + UP)
     }
-    const userListed = await UserModel.findOne({ id: message.member.id })
-    if(config.danger.debug == true){
-        console.warn('[DEBUG]', userListed.username + ' ' + userListed.dataCleared);
-    }
-    if(userListed){
-        if(userListed.messages + 1 > 100){
-            var MsgCount = 0;
-        }else{
-            var MsgCount = userListed.messages + 1; 
-        }
-    }
-    if (!userListed) {
+    
+    const aeóijejpedpoijdjpo = await UserModel.findOne({ id: message.member.id })
+    if (!aeóijejpedpoijdjpo) {
         var MsgCount = 1;
         const init = new UserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage, messages: MsgCount })
         await init.save();
         // message.reply("Your profile has been listed on: " + config.siteUrl + "/user/" + message.member.id + "\nYou can make your profile `private` by using: `"+ oprix +"liststatus (disallow/allow)`\nThis can be changed at any given time and is not needed to be changed.");
     } else {
+        const newData = await UserModel.findOne({ id: message.member.id })
+        if(newData){
+            var MsgCount = newData.messages + 1; 
+        } else {
+            var MsgCount = 1; 
+        }
         const init = await UserModel.findOneAndUpdate({ id: message.member.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MsgCount }, { new: true });
         if (config.danger.debug == true) {
             console.log('[DEBUG] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
         }
     }
-
-
+    const userListed = await UserModel.findOne({ id: message.member.id })
+    if(config.danger.debug == true){
+        console.warn('[DEBUG]', userListed.username + ' ' + userListed.dataCleared);
+    }
     if(userListed.removed == true) {
         const update = await GUserModel.findOneAndUpdate({ id: message.author.id, guildID: message.guild.id }, { removed: true, removeReason: "This user is site wide banned" }, { new: true })
     }
@@ -122,16 +131,10 @@ bot.on("message", async message => {
 
     if(guildIDB.premium == true){
         const PremUListed = await GUserModel.findOne({ id: message.member.id, guildID: message.guild.id })
-
         if(PremUListed){
-            if(userListed.messages + 1 > 100){
-                var messageCount = 0;
-            }else{
-                var messageCount = userListed.messages + 1; 
-            } 
+            var messageCount = PremUListed.messages + 1; 
+            if(config.danger.debug == true){console.warn("[DEBUG]", messageCount + " MSG")}
         }
-        
-
         if (!PremUListed) {
 
             if(userListed.admin == true){
@@ -165,14 +168,18 @@ bot.on("message", async message => {
             } else {
                 var SiteAdmin = false;
             }
+            var MESG = PremUListed.messages + 1; 
+            if(MESG === 100){
+                message.reply("Good job! You have reached " + MESG + " Messages on "+ message.guild.name +" :tada:");
+            }
             if(message.member.hasPermission("MANAGE_GUILD")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: messageCount, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
             } else if(message.member.hasPermission("ADMINISTRATOR")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: messageCount, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
             } else if(message.member.hasPermission("BAN_MEMBERS")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: messageCount, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
              } else {
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, messages: messageCount, siteAdmin: SiteAdmin }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MESG, siteAdmin: SiteAdmin }, { new: true });
             }
             if (config.danger.debug == true) {
                 console.log('[DEBUG] [PREMIUM LIST] ' + message.member.user.tag + ' on: ' + message.guild.name);
@@ -326,7 +333,7 @@ bot.on("message", async message => {
 
         try {
             if (gxp >= levelst.nxp) {
-                var nxp = "0";
+                var nxp = 0;
                 var level = levelst.level + 1;
                 var FXP = levelst.nxp + 50;
                 const levelstring = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: nxp, level: level, nxp: FXP }, { new: true });
@@ -435,7 +442,7 @@ bot.on("message", async message => {
 
 bot.on("guildCreate", async guild => {
     var serverid = guild.id;
-    const req = await GuildModel.findOne({ id: serverid, name: guild.name, icon: guild.iconURL() })
+    const req = await GuildModel.findOne({ id: serverid })
     if (!req) {
         const init = new GuildModel({ id: serverid, prefix: config.bot.prefix, name: guild.name, icon: guild.iconURL() })
         await init.save();
