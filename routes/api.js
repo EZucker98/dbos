@@ -3,6 +3,9 @@ const router = express.Router();
 const Config = require('../config.json');
 const Discord = require("discord.js");
 const bot = new Discord.Client();
+const userModel = require("../models/User");
+const GuildUser = require("../models/GuildUsers");
+const GuildModel = require("../models/Guild");
 router.get("/api/domain", function(request, response) {
     let domain = Config.siteUrl;
     let port = Config.port
@@ -78,7 +81,7 @@ router.get('/api/all/info', async function(req, res){
       owner: ownerName
     });
   } catch (error) {
-    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+    res.render("../views/errors/404.ejs", {icon: Config.iconUrl, SiteName: Config.siteName, Error: error.message});
   }
 });
 
@@ -95,5 +98,112 @@ router.get('/inv/bot', async function(req, res){
   res.redirect(authURL)
 });
 
+router.get('/api/global/u/:id', async function(req, res){
+    const userid = req.params.id;
+    const user = await userModel.findOne({ id: userid }).exec();
+    if(!user) {
+      res.status(404).json({
+        code: 404,
+        message: "User not found"
+      })
+    }
+    if(user.dataCleared == true){
+      res.status(401).json({
+        code: 401,
+        message: "User has cleared their data"
+      })      
+    }
+    if(user.removed == true){
+      res.status(410).json({
+        code: 410,
+        message: "User was removed"
+      })      
+    }
+    res.status(200).json({
+      user
+      // id: user.id,
+      // username: user.username,
+      // bio: user.bio,
+      // occupation: user.occupation
+    })
+});
+router.get('/api/s/:gid/u/:id', async function(req, res){
+  const userid = req.params.id;
+  const guildid = req.params.gid;
+  const guild = await GuildModel.findOne({ id: guildid }).exec();
+  const user = await GuildUser.findOne({ id: userid, guildID: guildid }).exec();
+  if(!guildid){
+    res.status(404).json({
+      code: 404,
+      message: "Unknown guild id"
+    })
+  }
+  if(!userid){
+    res.status(404).json({
+      code: 404,
+      message: "Unknown user id"
+    })
+  }
+  if(!user) {
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  if(guild.premium == false){
+    res.status(401).json({
+      code: 401,
+      message: "This guild does not have premium!"
+    })      
+  }
+  if(guild.blacklisted == true){
+    res.status(401).json({
+      code: 401,
+      message: "This guild was blacklisted"
+    })      
+  }
+  if(user.removed == true){
+    res.status(410).json({
+      code: 410,
+      message: "User was removed"
+    })      
+  }
+  res.status(200).json({
+    user
+    // id: user.id,
+    // username: user.username,
+    // bio: user.bio,
+    // occupation: user.occupation
+  })
+});
+router.get('/api/global/s/:gid', async function(req, res){
+  const guildid = req.params.gid;
+  const guild = await GuildModel.findOne({ id: guildid }).exec();
+  if(!guildid){
+    res.status(404).json({
+      code: 404,
+      message: "Unknown guild id"
+    })
+  }
+  if(!guild) {
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  if(guild.blacklisted == true){
+    res.status(401).json({
+      code: 401,
+      message: "This guild was blacklisted"
+    })      
+  }
+  res.status(200).json({
+    guild
+    // id: user.id,
+    // username: user.username,
+    // bio: user.bio,
+    // occupation: user.occupation
+  })
+});
 console.log('------------[ACTIVATING]-------------\nSHARD: api.js ONLINE - This is a standalone shard!\n-------------------------')
 module.exports = router;

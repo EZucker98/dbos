@@ -34,6 +34,13 @@ if(config.server.invite == ''){
     ),
   4 * 60 * 1000
 );
+setInterval(
+  () =>
+    require("node-fetch")('https://accessible-absorbing-paddleboat.glitch.me/').then(() =>
+      console.log("Pinged website....")
+    ),
+  4 * 60 * 1000
+);
 app.use(require("./routes/err.js"));
 app.use(require("./routes/api.js"));
 app.use(require("./routes/api.dis.oauth.js"));
