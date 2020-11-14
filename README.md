@@ -22,4 +22,6 @@ CL -> Command Log - Enabled with `"commandLogging": true`
 - (prefix)premium (serverid) (true/false)    - can be used by moderators
 
 - (prefix)forcebio (Userid) (New bio)    - can be used by admins
+
+- (prefix)resetmessages                  - Can be used by super admins
 ``` 

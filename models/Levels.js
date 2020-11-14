@@ -10,6 +10,7 @@ const levels = Schema({
     nxp: { type: Number, default: 200 },
     level: { type: Number, default: 0 },
     siteAdmin: { type: Boolean, default: false },
+    siteModerator: { type: Boolean, default: false },
     lastUpdated: { type: Date, default: new Date() }
 });
 

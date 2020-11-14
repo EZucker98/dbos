@@ -6,6 +6,7 @@ const bot = new Discord.Client();
 const userModel = require("../models/User");
 const GuildUser = require("../models/GuildUsers");
 const GuildModel = require("../models/Guild");
+const userLevels = require("../models/Levels");
 router.get("/api/domain", function(request, response) {
     let domain = Config.siteUrl;
     let port = Config.port
@@ -126,6 +127,37 @@ router.get('/api/global/u/:id', async function(req, res){
       // bio: user.bio,
       // occupation: user.occupation
     })
+});
+router.get('/api/s/:gid/u/:id/level', async function(req, res){
+  const userid = req.params.id;
+  const guildid = req.params.gid;
+  const user = await userLevels.findOne({ userID: userid, guildID: guildid }).exec();
+  const guild = await GuildModel.findOne({ id: guildid });
+  if(!user) {
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  if(!guild) {
+    res.status(404).json({
+      code: 404,
+      message: "Guild not found"
+    })
+  }
+  if(guild.blacklisted == true){
+    res.status(401).json({
+      code: 401,
+      message: "Guild was blacklisted"
+    });
+  }
+  res.status(200).json({
+    user
+    // id: user.id,
+    // username: user.username,
+    // bio: user.bio,
+    // occupation: user.occupation
+  })
 });
 router.get('/api/s/:gid/u/:id', async function(req, res){
   const userid = req.params.id;

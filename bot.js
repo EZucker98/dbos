@@ -325,11 +325,16 @@ bot.on("message", async message => {
         } else {
             var Sadmin = false;
         }
+        if(Guser.moderator == true){
+            var Smod = true;
+        } else {
+            var Smod = false;
+        }
 
         var gxp = levelNew.xp + 5 + levelNew.level;
         var xp = gxp;
         console.log(xp)
-        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp, siteAdmin: Sadmin }, { new: true });
+        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp, siteAdmin: Sadmin, siteModerator: Smod }, { new: true });
         var cxp = levelst.xp;
         if (config.danger.debug == true) {
             console.log('[DEBUG] CXP: ' + cxp)
