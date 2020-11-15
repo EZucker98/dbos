@@ -7,6 +7,7 @@ const userModel = require("../models/User");
 const GuildUser = require("../models/GuildUsers");
 const GuildModel = require("../models/Guild");
 const userLevels = require("../models/Levels");
+const Levels = require("../models/Levels");
 router.get("/api/domain", function(request, response) {
     let domain = Config.siteUrl;
     let port = Config.port
@@ -38,7 +39,6 @@ router.get("/api/bot", async function(request, response) {
     } catch (e) {
       console.error(e);
     }
-    
     response.status(200).json({
       url: authURL,
       invite: Config.server.invite,
@@ -59,7 +59,7 @@ router.get("/api/b/version", async function(request, response) {
     }
 
   response.status(200).json({
-    Version: VNUMF
+    version: VNUMF
 });
 });
 
@@ -235,6 +235,77 @@ router.get('/api/global/s/:gid', async function(req, res){
     // username: user.username,
     // bio: user.bio,
     // occupation: user.occupation
+  })
+});
+
+router.get('/api/g/u/all', async function(req, res){
+  const users = await userModel.find().limit(100).exec();
+  if(!users) {
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  res.status(200).json({
+    users
+  })
+});
+router.get('/api/u/s/:id/all', async function(req, res){
+  const guildid = req.params.id;
+  if(!guildid){
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  const users = await GuildUser.find({ guildID: guildid }).limit(100).exec();
+  if(!users) {
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  res.status(200).json({
+    users
+  })
+});
+
+router.get('/api/s/:id/levels', async function(req, res){
+  const guildid = req.params.id;
+  if(!guildid){
+    res.status(404).json({
+      code: 404,
+      message: "ID not found"
+    })
+  }
+  const levels = await Levels.find({ guildID: guildid }).limit(100).exec();
+  if(!levels) {
+    res.status(404).json({
+      code: 404,
+      message: "Nothing found in the database"
+    })
+  }
+  res.status(200).json({
+    levels
+  })
+});
+
+router.get('/api/:select/s/all', async function(req, res){
+  const selection = req.params.select;
+  if(selection == "premium"){
+    var slc = { premium: true }
+  } else {
+    var slc = {} 
+  }
+  const guilds = await GuildModel.find(slc).limit(100).exec();
+  if(!guilds) {
+    res.status(404).json({
+      code: 404,
+      message: "User not found"
+    })
+  }
+  res.status(200).json({
+    guilds
   })
 });
 console.log('------------[ACTIVATING]-------------\nSHARD: api.js ONLINE - This is a standalone shard!\n-------------------------')

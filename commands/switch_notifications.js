@@ -5,11 +5,13 @@ const GuildModel = require("../models/Guild");
 const UserModel = require("../models/User")
 module.exports.run = async (bot, message, args) => {
     try {
+        const author = await UserModel.findOne({ id: message.author.id });
         const guildData = await GuildModel.findOne({ id: message.guild.id })
         const state = args[0];
         if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"notifications (allow/disable)`")
 
         if(state == "allow") {
+            if(author.notifications == true) return message.reply("Yikes! You already allowed the notifications!");
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { notifications: true }}, { new: true });
             message.channel.send("You will now receive notifications for example: leveling up");
             const log = config.bot.moderation.entryLogging;
@@ -26,6 +28,7 @@ module.exports.run = async (bot, message, args) => {
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else if(state == "disable") {
+            if(author.notifications == true) return message.reply("Yikes! You already disabled the notifications!");
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { notifications: false }}, { new: true });
             message.channel.send("You will now not receive notifications for example: leveling up");
             const log = config.bot.moderation.entryLogging;

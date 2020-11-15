@@ -5,11 +5,13 @@ const GuildModel = require("../models/Guild");
 const UserModel = require("../models/User")
 module.exports.run = async (bot, message, args) => {
     try {
+        const author = await UserModel.findOne({ id: message.author.id });
         const guildData = await GuildModel.findOne({ id: message.guild.id })
         const state = args[0];
         if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"userdata (keep/clear)`")
 
         if(state == "keep") {
+            if(author.dataCleared == false) return message.reply("Yikes! I can't do this, you are already keeping the data!");
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { dataCleared: false }}, { new: true });
             message.channel.send("Your data was kept!");
             const log = config.bot.moderation.entryLogging;
@@ -26,6 +28,7 @@ module.exports.run = async (bot, message, args) => {
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else if(state == "clear") {
+            if(author.dataCleared == true) return message.reply("Yikes! I can't do this, you are already clearing the data!");
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { dataCleared: true }}, { new: true });
             message.channel.send("Your data was cleared!");
             const log = config.bot.moderation.entryLogging;
