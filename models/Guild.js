@@ -34,7 +34,7 @@ const Guild = Schema({
     },
     listed: {
         type: String,
-        default: "unlisted"
+        default: "true"
     },
     listedDescription: {
         type: String,

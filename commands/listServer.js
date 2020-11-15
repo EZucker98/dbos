@@ -5,7 +5,7 @@ const GuildModel = require("../models/Guild");
 const UserModel = require("../models/User")
 module.exports.run = async (bot, message, args) => {
     try {
-        if(!message.member.hasPermission('MANAGE_SERVER')) return message.reply("Missing the following perms: `MANAGE_SERVER`");
+        if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("Missing the following perms: `MANAGE_GUILD`");
         const author = await UserModel.findOne({ id: message.author.id });
         const guildData = await GuildModel.findOne({ id: message.guild.id })
         const state = args[0];

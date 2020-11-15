@@ -290,7 +290,7 @@ router.get("/s/:id", async (req, res, next) => {
 
 router.get("/servers", async (req, res, next) => {
   try {
-    const Nusers = await GuildModel.find({ premium: true }).sort({$natural:-1});
+    const Nusers = await GuildModel.find({ blacklisted: false }).limit(40).sort({$natural:-1});
     // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
 
     let data = {

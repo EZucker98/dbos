@@ -4,7 +4,7 @@ const { connect } = require('mongoose');
 const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
     try {
-        if(!message.member.hasPermission('MANAGE_SERVER')) return message.reply("Missing the following perms: `MANAGE_SERVER`");
+        if(!message.member.hasPermission('MANAGE_GUILD')) return message.reply("Missing the following perms: `MANAGE_GUILD`");
         if(!args.length) return message.reply('You didn\'t provide a server description.');
         if(args.length > 100) return message.reply('Error, You can\'t have more than `100` words.');
 
