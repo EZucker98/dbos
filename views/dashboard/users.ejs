@@ -114,6 +114,9 @@
                   <% if(user.verified){ %>
                       <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
                   <% } %> 
+                  <% if(user.partner){%>
+                    <i class="fas fa-handshake" title="DBOS Partner" style="color: var(--primary);"></i>  
+                  <%}%>
               </h3>
               <h4 class="rankLev" style="position: absolute; max-width: 40px; top:-15px; left:-20px;">#<%= Rank %></h4>
                     <br>

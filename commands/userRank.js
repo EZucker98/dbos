@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
     
         if(!Target) return message.channel.send("Please insert a valid user ID")
         if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
-        if(!Rank) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"setuser (userid) (rank)`\nAvailable ranks: `admin, moderator, contributor, verified`")
+        if(!Rank) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"setuser (userid) (rank)`\nAvailable ranks: `admin, moderator, contributor, verified, partner`")
 
         const TargetData = await UserModel.findOne({ id: Target });
         if(!TargetData) return message.channel.send("User not found.");
@@ -94,7 +94,26 @@ module.exports.run = async (bot, message, args) => {
             )
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(config.bot.moderation.entryLogging.channelLogId).send(removeEmbed);
-        }
+        } else if(Rank == "partner") {
+            if(!message.member.roles.cache.has(config.bot.moderation.server.superAdminRoleId)) return message.reply("You are not a super admin.");
+           const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { partner: true }}, { new: true });
+           message.channel.send("Updated user, they are now a Partner!");
+           // bot.users.cache.get(Target).send("You have been given the admin role!");
+           const log = config.bot.moderation.entryLogging;
+           const colors = require("../colors.json");
+           const removeEmbed = new Discord.MessageEmbed()
+           .setTitle('**Promoted User**')
+           .setColor(colors.success)
+           .setDescription(config.siteName + " has Promoted a user on the listing.")
+           .setTimestamp()
+           .addFields(
+               { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },
+               { name: '**Promoted**', value: `${doc.username} - ${Target}`, inline: true },
+               { name: '**Added rank**', value: `partner`, inline: true }
+           )
+           .setFooter('© Wezacon.com')
+          return bot.channels.cache.get(config.bot.moderation.entryLogging.channelLogId).send(removeEmbed);
+       }
     } catch (error) {
         console.log(error)
         const c = require("../colors.json");

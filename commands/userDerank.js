@@ -97,13 +97,34 @@ module.exports.run = async (bot, message, args) => {
             )
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(config.bot.moderation.entryLogging.channelLogId).send(Rankde);
+        } else if(Rank == "partner") {
+            if(!message.member.roles.cache.has(config.bot.moderation.server.superAdminRoleId)) return message.reply("You are not a super admin.");
+            const doc = await UserModel.findOneAndUpdate({ id: Target}, { $set: { partner: false }}, { new: true });
+            message.channel.send("Updated user, they are now not an partner!");
+
+            // bot.users.cache.get(Target).send("Your admin role has been removed.");
+
+            const log = config.bot.moderation.entryLogging;
+            const colors = require("../colors.json");
+            const Rankde = new Discord.MessageEmbed()
+            .setTitle('**Demoted User**')
+            .setColor(colors.danger)
+            .setDescription(config.siteName + " has Demoted a user on the listing.")
+            .setTimestamp()
+            .addFields(
+                { name: '**Admin**', value: `${message.member.user.tag}`, inline: true },
+                { name: '**Demoted**', value: `${doc.username} - ${Target}`, inline: true },
+                { name: '**Taken rank**', value: `partner`, inline: true }
+            )
+            .setFooter('© Wezacon.com')
+           return bot.channels.cache.get(config.bot.moderation.entryLogging.channelLogId).send(Rankde);
         }
     } catch (error) {
         const c = require("../colors.json");
         const Err_1 = new Discord.MessageEmbed()
             .setColor(c.error)
             .setTitle("**Error**")
-            .setDescription("I have encountered a unexpected error: `"+ error.message + " : " + columnNumber +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+            .setDescription("I have encountered a unexpected error: `"+ error.message + "`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
         return message.channel.send(Err_1);
     }
 }

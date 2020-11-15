@@ -173,18 +173,23 @@ bot.on("message", async message => {
             } else {
                 var Sitemoderator = false;
             }
+            if(userListed.partner == true){
+                var Spartner = true;
+            } else {
+                var Spartner = false;
+            }
             var MESG = PremUListed.messages + 1; 
             if(MESG === 100){
                 message.reply("Good job! You have reached " + MESG + " Messages on "+ message.guild.name +" :tada:");
             }
             if(message.member.hasPermission("MANAGE_GUILD")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator, sitePartner: Spartner }, { new: true });
             } else if(message.member.hasPermission("ADMINISTRATOR")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator, sitePartner: Spartner }, { new: true });
             } else if(message.member.hasPermission("BAN_MEMBERS")){
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator, sitePartner: Spartner }, { new: true });
              } else {
-                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator }, { new: true });
+                const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator, sitePartner: Spartner }, { new: true });
             }
             if (config.danger.debug == true) {
                 console.log('[DEBUG] [PREMIUM LIST] ' + message.member.user.tag + ' on: ' + message.guild.name);
@@ -330,11 +335,15 @@ bot.on("message", async message => {
         } else {
             var Smod = false;
         }
-
+        if(Guser.partner == true){
+            var Spartner = true;
+        } else {
+            var Spartner = false;
+        }
         var gxp = levelNew.xp + 5 + levelNew.level;
         var xp = gxp;
         console.log(xp)
-        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp, siteAdmin: Sadmin, siteModerator: Smod }, { new: true });
+        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp, siteAdmin: Sadmin, siteModerator: Smod, sitePartner: Spartner }, { new: true });
         var cxp = levelst.xp;
         if (config.danger.debug == true) {
             console.log('[DEBUG] CXP: ' + cxp)
