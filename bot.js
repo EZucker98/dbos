@@ -179,9 +179,12 @@ bot.on("message", async message => {
                 var Spartner = false;
             }
             var MESG = PremUListed.messages + 1; 
-            if(MESG === 100){
-                message.reply("Good job! You have reached " + MESG + " Messages on "+ message.guild.name +" :tada:");
+            if(userListed.notifications == true){
+                if(MESG === 100){
+                    message.reply("Good job! You have reached " + MESG + " Messages on "+ message.guild.name +" :tada:");
+                } 
             }
+
             if(message.member.hasPermission("MANAGE_GUILD")){
                 const init = await GUserModel.findOneAndUpdate({ id: message.member.id, guildID: message.guild.id }, { username: messageAuthor, profileImage: AuthorImage, serverSuperAdmin: true, messages: MESG, siteAdmin: SiteAdmin, siteModerator: Sitemoderator, sitePartner: Spartner }, { new: true });
             } else if(message.member.hasPermission("ADMINISTRATOR")){
@@ -384,22 +387,24 @@ bot.on("message", async message => {
                         await init.save();
                         // message.reply("Your profile has been listed on: " + config.siteUrl + "/user/" + message.member.id + "\nYou can make your profile `private` by using: `"+ oprix +"liststatus (disallow/allow)`\nThis can be changed at any given time and is not needed to be changed.\n||This message will only be shown one time!||");
                     }
-                    const rank = new canvacord.Rank()
-                        .setAvatar(message.author.displayAvatarURL({ dynamic: false, format: 'png' }))
-                        .setCurrentXP(user.xp)
-                        .setRequiredXP(user.nxp)
-                        .setProgressBar("#FFFFFF", "COLOR")
-                        .setUsername(message.author.username)
-                        .setDiscriminator(message.author.discriminator)
-                        .setRank(user.level, 'LEVEL UP', false)
-                        .setLevel(user.level, 'LEVEL', true)
-                        .setStatus("offline")
-                        
-                    rank.build()
-                            .then(data => {
-                                const attmnt = new Discord.MessageAttachment(data, 'DBOS_rank_card.png');
-                                return message.channel.send(attmnt);
-                            });
+                    if(UserDB.notifications == true){
+                        const rank = new canvacord.Rank()
+                            .setAvatar(message.author.displayAvatarURL({ dynamic: false, format: 'png' }))
+                            .setCurrentXP(user.xp)
+                            .setRequiredXP(user.nxp)
+                            .setProgressBar("#FFFFFF", "COLOR")
+                            .setUsername(message.author.username)
+                            .setDiscriminator(message.author.discriminator)
+                            .setRank(user.level, 'LEVEL UP', false)
+                            .setLevel(user.level, 'LEVEL', true)
+                            .setStatus("offline")
+                            
+                        rank.build()
+                                .then(data => {
+                                    const attmnt = new Discord.MessageAttachment(data, 'DBOS_rank_card.png');
+                                    return message.channel.send(attmnt);
+                                });
+                    }
                     // const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
                     // ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
                     // // Add an exclamation point here and below

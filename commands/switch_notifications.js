@@ -7,42 +7,42 @@ module.exports.run = async (bot, message, args) => {
     try {
         const guildData = await GuildModel.findOne({ id: message.guild.id })
         const state = args[0];
-        if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"userdata (keep/clear)`")
+        if(!state) return message.channel.send("Please use the command like this: `"+ guildData.prefix +"notifications (allow/disable)`")
 
-        if(state == "keep") {
-            const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { dataCleared: false }}, { new: true });
-            message.channel.send("Your data was kept!");
+        if(state == "allow") {
+            const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { notifications: true }}, { new: true });
+            message.channel.send("You will now receive notifications for example: leveling up");
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");
             const removeEmbed = new Discord.MessageEmbed()
-            .setTitle('**dataCleared**')
+            .setTitle('**Notifications enabled**')
             .setColor(colors.success)
             .setTimestamp()
             .addFields(
                 { name: '**User**', value: `${doc.username} - ${message.member.id}`, inline: true },
                 { name: '**Guild**', value: `${message.guild.name} - ${message.guild.id}`, inline: true },
-                { name: '**Data Removed**', value: `False`, inline: true }
+                { name: '**Notifications**', value: `true`, inline: true }
             )
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
-        } else if(state == "clear") {
-            const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { dataCleared: true }}, { new: true });
-            message.channel.send("Your data was cleared!");
+        } else if(state == "disable") {
+            const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { notifications: false }}, { new: true });
+            message.channel.send("You will now not receive notifications for example: leveling up");
             const log = config.bot.moderation.entryLogging;
             const colors = require("../colors.json");
             const removeEmbed = new Discord.MessageEmbed()
-            .setTitle('**dataCleared**')
+            .setTitle('**Notifications disabled**')
             .setColor(colors.danger)
             .setTimestamp()
             .addFields(
                 { name: '**User**', value: `${doc.username} - ${message.member.id}`, inline: true },
                 { name: '**Guild**', value: `${message.guild.name} - ${message.guild.id}`, inline: true },
-                { name: '**Data Removed**', value: `true`, inline: true }
+                { name: '**Notifications**', value: `false`, inline: true }
             )
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else {
-            return message.channel.send("Please use the command like this: `"+ guildData.prefix +"userdata (keep/clear)`")
+            return message.channel.send("Please use the command like this: `"+ guildData.prefix +"notifications (allow/disable)`")
         }
     } catch (error) {
         const c = require("../colors.json");
@@ -55,6 +55,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "userdata",
+    name: "notifications",
     aliases: []
 }

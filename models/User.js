@@ -3,6 +3,10 @@ const config = require('../config.json');
 
 const User = Schema({
     id: String,
+    notifications: {
+        type: Boolean,
+        default: true
+    },
     admin: {
         type: Boolean,
         default: false
