@@ -28,7 +28,7 @@ module.exports.run = async (bot, message, args) => {
             .setFooter('© Wezacon.com')
            return bot.channels.cache.get(log.channelLogId).send(removeEmbed);
         } else if(state == "disable") {
-            if(author.notifications == true) return message.reply("Yikes! You already disabled the notifications!");
+            if(author.notifications == false) return message.reply("Yikes! You already disabled the notifications!");
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id}, { $set: { notifications: false }}, { new: true });
             message.channel.send("You will now not receive notifications for example: leveling up");
             const log = config.bot.moderation.entryLogging;
