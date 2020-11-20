@@ -31,14 +31,6 @@ const Guild = Schema({
     invite: {
         type: String,
         default: "none"
-    },
-    listed: {
-        type: String,
-        default: "true"
-    },
-    listedDescription: {
-        type: String,
-        default: "No description was provided"
     }
 });
 
