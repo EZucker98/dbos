@@ -16,7 +16,6 @@ module.exports.run = async (bot, message, args) => {
 
             const Guser = await GUserModel.findOne({ id: Target });
             if(Guser.admin == true) return message.reply("This profile cannot be removed since the user is a global Administrator!");
-            if(Guser.removed == true) return message.reply("This profile can't be removed since it was removed site wide by one of the DBOS staff members!");
 
             if(Target == config.bot.id) return message.channel.send("Please insert a valid user ID");
             const RXR = args.slice(1).join(' ');
