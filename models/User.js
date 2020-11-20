@@ -15,6 +15,10 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    bugBuster: {
+        type: Boolean,
+        default: false
+    },
     contributor: {
         type: Boolean,
         default: false

@@ -11,6 +11,7 @@ const levels = Schema({
     level: { type: Number, default: 0 },
     siteAdmin: { type: Boolean, default: false },
     siteModerator: { type: Boolean, default: false },
+    siteBugBuster: {type: Boolean,default: false},
     sitePartner: { type: Boolean, default: false },
     lastUpdated: { type: Date, default: new Date() }
 });

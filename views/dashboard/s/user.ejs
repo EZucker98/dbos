@@ -118,6 +118,19 @@
       <% } %>
       <%
       if(dbuser.removed == false){ %>
+        <% if(dbuser.siteBugBuster){%>
+              <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  
+          <%}%>
+          <% if(dbuser.serverModerator){ %>
+                    <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
+                <% } %> 
+                <% if(dbuser.serverSuperAdmin){ %>
+                    <i class="fa fa-tools" style="color: #25a109;" title="Server Staff"></i>
+                <% } %> 
+                <% if(dbuser.serverAdmin){ %>
+                    <i class="fa fa-gavel" style="color: #2fb312;" title="Admin"></i>
+                <% } %> 
+        <br>
       <% if(dbuser.siteModerator){ %>
         <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
       <% }} %>
@@ -125,15 +138,7 @@
                 <% if(dbuser.sitePartner){%>
                     <i class="fas fa-handshake" title="DBOS Partner" style="color: var(--primary);"></i>  
                 <%}%>  
-                <% if(dbuser.serverSuperAdmin){ %>
-                    <i class="fa fa-tools" style="color: #25a109;" title="Server Staff"></i>
-                <% } %> 
-                <% if(dbuser.serverAdmin){ %>
-                    <i class="fa fa-gavel" style="color: #2fb312;" title="Admin"></i>
-                <% } %> 
-                <% if(dbuser.serverModerator){ %>
-                    <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
-                <% } %> 
+                
      <% }
         %> 
          <% 

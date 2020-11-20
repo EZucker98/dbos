@@ -20,6 +20,10 @@ const GUser = Schema({
         type: Boolean,
         default: false
     },
+    siteBugBuster: {
+        type: Boolean,
+        default: false
+    },
     sitePartner: {
         type: Boolean,
         default: false

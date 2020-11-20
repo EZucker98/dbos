@@ -8,6 +8,7 @@ const GuildUser = require("../models/GuildUsers");
 const GuildModel = require("../models/Guild");
 const userLevels = require("../models/Levels");
 const Levels = require("../models/Levels");
+const pkg = require("../package.json");
 router.get("/api/domain", function(request, response) {
     let domain = Config.siteUrl;
     let port = Config.port
@@ -43,7 +44,8 @@ router.get("/api/bot", async function(request, response) {
       url: authURL,
       invite: Config.server.invite,
       uptime: uptime,
-      Clientid: ID
+      Clientid: ID,
+      version: pkg.version
   });
 });
 
@@ -306,6 +308,20 @@ router.get('/api/:select/s/all', async function(req, res){
   }
   res.status(200).json({
     guilds
+  })
+});
+
+router.get('/api/l/:select', async function(req, res){
+  const select = req.params.select;
+  const guild = await GuildModel.findOne({ id: select }).limit(100).exec();
+  if(!guild) {
+    res.status(404).json({
+      code: 404,
+      message: "No guild found"
+    })
+  }
+  res.status(200).json({
+    guild
   })
 });
 console.log('------------[ACTIVATING]-------------\nSHARD: api.js ONLINE - This is a standalone shard!\n-------------------------')

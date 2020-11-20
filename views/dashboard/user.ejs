@@ -134,6 +134,10 @@
      <% if(dbuser.removed == false){ %>
       <%
       if(dbuser.removed == false){ %>
+        <% if(dbuser.bugBuster){%>
+              <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  
+          <%}%>
+          <br>
       <% if(dbuser.moderator){ %>
         <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
       <% }} %>

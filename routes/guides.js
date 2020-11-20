@@ -288,61 +288,6 @@ router.get("/s/:id", async (req, res, next) => {
 }
 });
 
-router.get("/servers", async (req, res, next) => {
-  try {
-    const Nusers = await GuildModel.find({ blacklisted: false }).limit(40).sort({$natural:-1});
-    // const Rusers = await Nusers.aggregate([{ $sample: { size: 100 } }]);
-
-    let data = {
-      // rusers: Rusers,
-      guilds: Nusers,
-      icon: config.iconUrl,
-      SiteName: config.siteName
-    }
-    res.render("../views/dashboard/s/serverlist.ejs", data);
-  } catch (error) {
-    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
-  }
-});
-
-router.get("/g/:id/info", async (req, res, next) => {
-  const guildSingle = await bot.guilds.fetch(req.params.id);
-  if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})
-  const Server = await GuildModel.findOne({ id: req.params.id });
-  try {
-    if(Server){
-      if(Server.blacklisted == true){
-        var cerr = "This server was blacklisted.";
-        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
-      } 
-      if(Server.listed == "false"){
-        var cerr = "This server was blacklisted.";
-        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
-      } 
-        if(Server.invite == "none" || Server.invite == null || Server.invite == undefined){
-          var invAv = false;
-        } else {
-          var invAv = true;
-        }
-          let data = {
-              server: req.server,
-              serverCore: guildSingle,
-              GuildDB: Server,
-              isProfile: true,
-              icon: config.iconUrl,
-              hasInv: invAv,
-              Invite: Server.invite,
-              SiteName: config.siteName
-          }
-      res.render("../views/dashboard/s/l/info.ejs", data);
-    } else {
-      var cerr = "Unknown error.";
-      res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
-    }
-  } catch (error) {
-    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
-}
-});
 // if 404
 router.get("*", function(request, response) {
   response.render("../views/errors/404.ejs", {
