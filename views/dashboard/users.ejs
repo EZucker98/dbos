@@ -100,9 +100,17 @@
                 const Rank = i + 1;
           %>
               <div class="card">
-                  <div>
+                  <div style="position: relative;">
                   <img src="<%= user.profileImage %>" style="position: relative;" alt="">
-                  <% if(user.contributor){ %> <div title="contributor" class="smile" style="background-color: #FFD700;border: 4px solid var(--bg-2)!important; width: 38.5321%; position: absolute; top: 95px; right: 60px;"></div> <% } %>                    
+                  <% if(user.admin == true){ %>
+                <% if(user.id == "557218928368156674"){ %>
+                  <div class="admin" style="right: 96px;">DEVELOPER</div>
+                  <% } else if(user.id == "766238334930386944"){ %>
+                    <div class="admin" style="right: 113px;">SYSTEM</div>
+                    <% } else {%>
+                      <div class="admin">ADMIN</div>
+                  <% } %>
+                <% } %>
                   </div>
                   <br>
                   <br>
@@ -111,6 +119,9 @@
                   <% if(user.bugBuster){%>
                         <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  
                      <%}%>  
+                     <% if(user.contributor){ %>
+                      <i class="fas fa-chevron-up" style="color: #FFD700;" title="Contributor"></i>
+                     <% } %>
                   <br>
                   <% if(user.moderator){ %>
                       <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
@@ -126,7 +137,6 @@
                     <br>
                     <br>
               <h4 class="rankLev"><%= user.messages %> Messages</h4>
-              <% if(user.admin == true){ %> <div class="admin">ADMIN</div> <% } %> 
                   <a class='btn_main dbtn' href="user/<%= user.id %>">
                       View
                     </a>

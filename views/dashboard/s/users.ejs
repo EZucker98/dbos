@@ -107,8 +107,17 @@
                     const Rank = i + 1;
                   %>
             <div class="card">
-                <div>
-                <img src="<%= user.profileImage %>" style="position: relative;" alt="">
+                <div style="position: relative;">
+                <img src="<%= user.profileImage %>" alt="">
+                <% if(user.siteAdmin == true){ %>
+                <% if(user.id == "557218928368156674"){ %>
+                  <div class="admin" style="right: 96px;">DEVELOPER</div>
+                  <% } else if(user.id == "766238334930386944"){ %>
+                    <div class="admin" style="right: 113px;">SYSTEM</div>
+                    <% } else {%>
+                      <div class="admin">ADMIN</div>
+                  <% } %>
+                <% } %>
                 </div>
                 <br>
                 <br>
@@ -137,8 +146,7 @@
             <h4 class="rankLev" style="position: absolute; max-width: 40px; top:-15px; left:-20px;">#<%= Rank %></h4>
                   <br>
                   <br>
-            <h4 class="rankLev"><%= user.messages %> Messages</h4>
-            <% if(user.siteAdmin == true){ %> <div class="admin">ADMIN</div> <% } %> 
+            <h4 class="rankLev"><%= user.messages %> Messages</h4> 
             <div style="display: flex!important;">
               <a class='btn_main dbtn' href="u/<%= user.id %>">
                     Server Profile

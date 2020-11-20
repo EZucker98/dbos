@@ -138,8 +138,17 @@
 
                 %>
                   <div class="card">
-                      <div>
+                      <div style="position: relative;">
                       <img src="<%= user.userImage %>" style="position: relative;" alt="">                   
+                      <% if(user.siteAdmin == true){ %>
+                <% if(user.id == "557218928368156674"){ %>
+                  <div class="admin" style="right: 96px;">DEVELOPER</div>
+                  <% } else if(user.id == "766238334930386944"){ %>
+                    <div class="admin" style="right: 113px;">SYSTEM</div>
+                    <% } else {%>
+                      <div class="admin">ADMIN</div>
+                  <% } %>
+                <% } %>
                       </div>
                       <br>
                       <br>
@@ -165,7 +174,6 @@
                     <% } else { %>
                       <div style="display: flex!important; justify-content: center;">
                   <% } %>
-                  <% if(user.siteAdmin == true){ %><div class="admin">ADMIN</div><% } %>
                   <% if(GuildDB.premium == true){ %>
                       <a class='btn_main dbtn' href="../s/<%= GuildDB.id %>/u/<%= user.userID %>">
                         Server Profile
