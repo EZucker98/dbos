@@ -52,8 +52,8 @@
     transition: all .25s ease-in-out;
     }
   </style>
-</head>
-<body>
+</head> 
+<body style="background-color: <%= dbuser.hex %> !important;">
   <nav class="navbar navbar-expand navbar-dark <% if(dbuser.removed == true){ %>error-background<% } %> <% if(dbuser.allowListing == false){ %>info-background<% } %>">
     <div class="nav navbar-nav">
       <div class="icon">
@@ -204,26 +204,24 @@
   <br>
   <br>
   <div class="pageContent">
-    <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverapp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves top" style="transform: rotate(180deg);"><defs _ngcontent-serverapp-c56=""><path _ngcontent-serverapp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverapp-c56="" class="parallax"><use _ngcontent-serverapp-c56="" id="wave1t" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverapp-c56="" id="wave2t" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverapp-c56="" id="wave3t" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverapp-c56="" id="wave4t" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
     <br>
-    <div class="heading">
+    <div class="heading" style="background: <%= dbuser.hex %> !important; filter: brightness(120%);">
       <br>Bio 
       <!-- <div style="width: 38.5321%;">
         <div class="smile blue"></div>
       </div> -->
     </div>
-    <div class="content">
+    <div class="content" style="background: <%= dbuser.hex %> !important; filter: brightness(120%);">
       <% if(dbuser.removed == false){ %>
         <%- bio %>
       <% } else {%>
         The bio of this user has been <strong>Removed</strong>
       <% } %>
-        <div class="Buttons">
+        <div class="Buttons" style="background: <%= dbuser.hex %> !important; border: none;">
             <a href="/api/git"><i class="fab fa-github-square"></i></a>
             <a href="https://dbos.flarum.cloud/"><i class="fa fa-question-circle"></i></a>
         </div>
     </div>
-    <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverApp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves bottom" style="transform: rotate(180deg);"><defs _ngcontent-serverApp-c56=""><path _ngcontent-serverApp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverApp-c56="" class="parallax"><use _ngcontent-serverApp-c56="" id="wave1b" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverApp-c56="" id="wave2b" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverApp-c56="" id="wave3b" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverApp-c56="" id="wave4b" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
 </div>
 
 

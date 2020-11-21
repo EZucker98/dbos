@@ -3,6 +3,10 @@ const config = require('../config.json');
 
 const User = Schema({
     id: String,
+    hex: {
+        type: String,
+        default: "#0f1a31"
+    },
     notifications: {
         type: Boolean,
         default: true
