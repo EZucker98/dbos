@@ -8,8 +8,8 @@ module.exports.run = async (bot, message, args) => {
     if(args[0] > 100) return message.reply('You can not delete over 100 messages at once.');
      if(args[0] < 1) return message.reply('You need to delete atleast 1 message.');
      message.channel.bulkDelete(args[0])
-       .then(messages => message.reply(`*Successfully deleted*  __**${amount}**__  *messages.*`))
-       .catch(() => message.reply('Something went wrong while deleting the messages!'));
+       .then(messages => message.reply(`Successfully deleted **${amount}** messages.`))
+       .catch((err) => message.reply('Error: ' + err));
 
   } catch (error) {
     const c = require("../colors.json");
