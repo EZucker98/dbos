@@ -9,6 +9,24 @@ const GuildModel = require("../models/Guild");
 const userLevels = require("../models/Levels");
 const Levels = require("../models/Levels");
 const pkg = require("../package.json");
+
+router.get("/api/:target/theme", async function(request, response) {
+  const t = request.params.target;
+  if(t == "bot"){
+    var theme = require("../colors.json");
+  } else if(t == "site"){
+    var theme = require("./theme.json");
+  } else {
+    response.status(404).json({
+      code: 404,
+      message: "Target can only be: 'bot'/'site'"
+    })
+  }
+  response.status(200).json({
+    theme
+  });
+});
+
 router.get("/api/domain", function(request, response) {
     let domain = Config.siteUrl;
     let port = Config.port
@@ -222,7 +240,7 @@ router.get('/api/global/s/:gid', async function(req, res){
   if(!guild) {
     res.status(404).json({
       code: 404,
-      message: "User not found"
+      message: "Guild not found"
     })
   }
   if(guild.blacklisted == true){
