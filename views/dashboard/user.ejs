@@ -53,7 +53,7 @@
     }
   </style>
 </head> 
-<body style="background-color: <%= dbuser.hex %> !important;">
+<body>
   <nav class="navbar navbar-expand navbar-dark <% if(dbuser.removed == true){ %>error-background<% } %> <% if(dbuser.allowListing == false){ %>info-background<% } %>">
     <div class="nav navbar-nav">
       <div class="icon">
@@ -135,34 +135,34 @@
       <%
       if(dbuser.removed == false){ %>
         <% if(dbuser.bugBuster){%>
-              <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  
+              <img src="https://github.com/wezacon/dbos/blob/main/public/img/bug_buster.png?raw=true" alt="Bug Buster" style="width: 45px;">
+              <!-- <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  -->  
           <%}%>
+          <br>
           <br>
       <% if(dbuser.moderator){ %>
         <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
       <% }} %>
+      <% if(dbuser.contributor){ %>
+                    <img src="https://github.com/wezacon/dbos/blob/main/public/img/contributor.png?raw=true"  title="Contributor" alt="Contributor" style="width: 45px; background: none;">
+                      <!--<i class="fas fa-chevron-up" style="color: #FFD700;" title="Contributor"></i>-->
+                     <% } %>
         <% if(dbuser.partner){%>
               <i class="fas fa-handshake" title="DBOS Partner" style="color: var(--primary);"></i>  
           <%}%>
         <% if(verified){ %>
-              <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
+              <img src="https://github.com/wezacon/dbos/blob/main/public/img/verified.png?raw=true" style="display: inline-block;width: 35px;" title="Verified">
           <% } 
       }
         %> 
+        <br>
+                <br>
          <% 
          if(dbuser.removed == false){
           if(developer){ %> 
               <img class="developerBadge" style="background: none !important;" src="https://emoji.gg/assets/emoji/4228_discord_bot_dev.png"> 
           <% }
           } %> 
-         <div class="profilebadges" style="position: relative; justify-content: center!important; align-items: center; text-align: center; display: flex; margin: 30px;">
-            <%
-            if(dbuser.removed == false){ %>
-             <% if(contributor == true){ %>
-                  <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%; margin-bottom: 10px;"></div>
-              <% } 
-            }%>  
-         </div>
         </h1>
         <% if(dbuser.removed == false){ %>
           <h4 class="rankLev"><%= dbuser.messages %> Messages</h4>
@@ -204,24 +204,26 @@
   <br>
   <br>
   <div class="pageContent">
+    <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverapp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves top" style="transform: rotate(180deg);"><defs _ngcontent-serverapp-c56=""><path _ngcontent-serverapp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverapp-c56="" class="parallax"><use _ngcontent-serverapp-c56="" id="wave1t" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverapp-c56="" id="wave2t" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverapp-c56="" id="wave3t" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverapp-c56="" id="wave4t" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
     <br>
-    <div class="heading" style="background: <%= dbuser.hex %> !important; filter: brightness(120%);">
+    <div class="heading">
       <br>Bio 
       <!-- <div style="width: 38.5321%;">
         <div class="smile blue"></div>
       </div> -->
     </div>
-    <div class="content" style="background: <%= dbuser.hex %> !important; filter: brightness(120%);">
+    <div class="content">
       <% if(dbuser.removed == false){ %>
         <%- bio %>
       <% } else {%>
         The bio of this user has been <strong>Removed</strong>
       <% } %>
-        <div class="Buttons" style="background: <%= dbuser.hex %> !important; border: none;">
+        <div class="Buttons">
             <a href="/api/git"><i class="fab fa-github-square"></i></a>
             <a href="https://dbos.flarum.cloud/"><i class="fa fa-question-circle"></i></a>
         </div>
     </div>
+    <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverApp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves bottom" style="transform: rotate(180deg);"><defs _ngcontent-serverApp-c56=""><path _ngcontent-serverApp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverApp-c56="" class="parallax"><use _ngcontent-serverApp-c56="" id="wave1b" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverApp-c56="" id="wave2b" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverApp-c56="" id="wave3b" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverApp-c56="" id="wave4b" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
 </div>
 
 

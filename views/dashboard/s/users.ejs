@@ -123,9 +123,10 @@
                 <br>
             <h3>
                 <%= user.username %>    
-              <% if(user.siteBugBuster){%>
-                <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  
-              <%}%>                            
+                <% if(user.siteBugBuster){%>
+                          <img src="https://github.com/wezacon/dbos/blob/main/public/img/bug_buster.png?raw=true" alt="Bug Buster" style="width: 45px; background: none;">
+                          <!-- <i class="fas fa-bug" title="DBOS bugBuster" style="color: #9b59b6;"></i>  -->  
+                      <%}%>                             
                 <% if(user.serverSuperAdmin){ %>
                     <i class="fa fa-tools" style="color: #25a109;" title="Server Staff"></i>
                 <% } %> 
@@ -135,6 +136,7 @@
                 <% if(user.serverModerator){ %>
                     <i class="fa fa-wrench" style="color: #2fb312;" title="Moderator"></i>
                 <% } %> 
+                <br>
                 <br>
                 <% if(user.siteModerator){ %>
                         <img src="https://github.com/wezacon/dbos/blob/main/public/img/mods/moderator.png?raw=true" style="display: inline-block;width: 40px; background: none;" title="Site Moderator">
